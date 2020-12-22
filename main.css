@@ -1,0 +1,124 @@
+* {
+}
+body {
+  background-color: rgba(0, 0, 0, 0.1);
+  margin: 0;
+  padding: 0;
+}
+header {
+  background-color: #000;
+  height: 54px;
+  min-width: 380px;
+}
+header .Header-wrapper {
+  min-width: inherit;
+  max-width: 1024px;
+  margin: 0 auto;
+}
+header .Header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 54px;
+  margin: 0 15px;
+  box-sizing: border-box;
+}
+header .Header-logo {
+  background: url("./assets/spotify-logo.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 27px;
+  min-width: 89px;
+  box-sizing: border-box;
+}
+header .Header-me {
+  background: url("./assets/img/me.jpg");
+  background-size: cover;
+  border-radius: 50%;
+  background-repeat: no-repeat;
+  width: 34px;
+  height: 34px;
+  margin-left: 10px;
+  box-sizing: border-box;
+}
+/* header nav {
+  display: flex;
+  box-sizing: border-box;
+}
+header nav ul {
+  display: flex;
+  justify-content: space-around;
+  margin: auto;
+  box-sizing: border-box;
+}
+header nav ul li {
+  list-style: none;
+  margin-left: 10px;
+}
+header nav ul li a {
+  color: white;
+  margin: auto 0;
+  font-weight: 700;
+} */
+
+.search-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  margin: 20px;
+  text-align: center;
+}
+
+article img {
+  border-radius: 50%;
+}
+
+#container_test {
+  display: flex;
+  flex-wrap: wrap;
+}
+#container_test img {
+  margin: 5px;
+}
+#img_categories {
+  border-radius: 50%;
+}
+#container_me {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.btn.dropdown-toggle {
+  width: 150px;
+  text-align: left;
+}
+
+span.caret {
+  position: absolute;
+  left: 90%;
+  top: 45%;
+}
+
+label {
+  padding-top: 5px;
+}
+
+.form-label {
+  padding-left: 0px !important;
+}
+
+img {
+  width: 140px;
+  height: 140px;
+}
+
+.btn-success {
+  background-color: #3b7d4a !important;
+}
+
+.btn-success:hover {
+  background-color: #4daf64 !important;
+}
+
+img.track {
+  border: 1px solid #8a8a8a;
+}
