@@ -30,7 +30,9 @@ const APIController = (function() {
     }
 
       const _getSearch = async (token, nameId) => {
-        const result = await fetch(`https://api.spotify.com/v1/search?q=${nameId}&type=track%2Cartist&limit=4`, {
+          const limit =4
+
+        const result = await fetch(`https://api.spotify.com/v1/search?q=${nameId}&type=track%2Cartist&limit=${limit}`, {
             method: 'GET',
             headers: { 'Authorization' : 'Bearer ' + token},
             
@@ -149,13 +151,13 @@ const UIController = (function() {
                 <div class="container">
                 <div class="search" id="id-search">
                 <article>
-                <h5>Name: ${name}</h5>
+                <h5>${name}</h5>
                 <p>Followers: ${followers}</p>
                 <img src="${images}" alt=""/>
                 </article>
                 </div>    
                 `;
-            searchList.insertAdjacentHTML('beforeend', html)
+            searchList.insertAdjacentHTML('afterend', html)
         }, 
 
         createPlaylist(text, value) {
@@ -250,8 +252,13 @@ const APPController = (function(UICtrl, APICtrl) {
             //get the search
             const nameId =   DOMInputs.input_search.value
             const search = await APICtrl.getSearch(token, nameId);
+
+
             //search select element
-            search.forEach(element => UICtrl.createSearch(element.name, element.followers.total, element.images[0].url));
+            for (let i = 0; i <=4 ; i++ ){
+
+                search.forEach(element => UICtrl.createSearch(element.name, element.followers.total, element.images[0].url));
+            }
         })
     
     

@@ -167,7 +167,7 @@ const scopes = [
                 
                 `
                 containerSearch.appendChild(div)
-                
+
             })
         })
         return data
@@ -422,10 +422,7 @@ const APPController = (function(UICtrl, APICtrl) {
         const token = await APICtrl.getToken()
        /* console.log("token_SEARCH::", token) */
         UICtrl.storeToken(token)
-
-        const  search = await APICtrl.getSearch(token)
-        
-        
+        const  search = await APICtrl.getSearch(token)        
         
     }
    
