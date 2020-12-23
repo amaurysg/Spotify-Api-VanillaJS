@@ -31,56 +31,55 @@
         <input type="search" name="" id="input-search" placeholder="Search your Music">
         <button type="button" id="btn-search"> Go!</button>
     </div>
+    <!-- container results search -->
+    <div class="container-search" id="id-search">
+        <h1>Artists</h1>
+    </div>
 
-    <div class="container">
-        <div class="search" id="id-search">
-            <article>
-                <h3>Name: Artist</h3>
-                <p>Songs:</p>
-            </article>
+    <!--  PLAY LIST  POPULAR-->
+
+    <div id="container_test"></div>
+    <!--  <div id="container_me"></div> -->
+
+    <!-- **** div for genre **** -->
+    <div id="gen_container" class="gen-container">
+
+    </div>
+
+    <div class="categories" id="categories">
+        categories here !
+    </div>
+    <form action="">
+        <input type="hidden" id='hidden_token'>
+        <div class="col-sm-6 form-group row mt-4 px-0">
+            <label for="Genre" class="form-label col-sm-2">Genre:</label>
+            <!--   <div id="me"></div> -->
+            <ul>
+                <li id="select_genre"></li>
+            </ul>
+
+            <select name="" id="select_genre" class="form-control form-control-sm col-sm-10">
+                <option>Select...</option>
+            </select>
         </div>
-        <div id="genres-f"></div>
-        <!--  PLAY LIST  POPULAR-->
-        <div id="container_test"></div>
-        <!--  <div id="container_me"></div> -->
-
-        <h1>Spotify API</h1>
-        <!-- **** div for genre **** -->
-        <div id="gen_container" class="gen-container">
-
+        <div class="col-sm-6 form-group row px-0">
+            <label for="Genre" class="form-label col-sm-2">Playlists:</label>
+            <select name="" id="select_playlist" class="form-control form-control-sm col-sm-10">
+                <option>Select...</option>
+            </select>
         </div>
-
-        <div class="categories" id="categories">
-            categories here !
+        <div class="col-sm-6 row form-group px-0">
+            <button type="submit" id="btn_submit" class="btn btn-success col-sm-12">Search</button>
         </div>
-        <form action="">
-            <input type="hidden" id='hidden_token'>
-            <div class="col-sm-6 form-group row mt-4 px-0">
-                <label for="Genre" class="form-label col-sm-2">Genre:</label>
-                <!--   <div id="me"></div> -->
-                <select name="" id="select_genre" class="form-control form-control-sm col-sm-10">
-                    <option>Select...</option>
-                </select>
-            </div>
-            <div class="col-sm-6 form-group row px-0">
-                <label for="Genre" class="form-label col-sm-2">Playlists:</label>
-                <select name="" id="select_playlist" class="form-control form-control-sm col-sm-10">
-                    <option>Select...</option>
-                </select>
-            </div>
-            <div class="col-sm-6 row form-group px-0">
-                <button type="submit" id="btn_submit" class="btn btn-success col-sm-12">Search</button>
-            </div>
-        </form>
-        <div class="row">
-            <div class="col-sm-6 px-0">
-                <div class="list-group song-list">
+    </form>
+    <div class="row">
+        <div class="col-sm-6 px-0">
+            <div class="list-group song-list">
 
-                </div>
-            </div>
-            <div class="offset-md-1 col-sm-4" id="song-detail">
             </div>
         </div>
+        <div class="offset-md-1 col-sm-4" id="song-detail"></div>
+    </div>
     </div>
 
     <script src="app1.js" type="text/javascript"></script>

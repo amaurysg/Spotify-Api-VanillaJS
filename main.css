@@ -95,6 +95,16 @@ article img {
 .container {
   text-align: center;
 }
+.container-search {
+  justify-content: center;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+article {
+  margin: 5px;
+}
 
 #container_test {
   display: flex;

@@ -20,7 +20,7 @@ const APIController = (function() {
     
     const _getGenres = async (token) => {
 
-        const result = await fetch(`https://api.spotify.com/v1/browse/categories?locale=sv_US`, {
+        const result = await fetch(`https://api.spotify.com/v1/browse/categories?locale=sv_US&limit=4&offset=1`, {
             method: 'GET',
             headers: { 'Authorization' : 'Bearer ' + token}
         });
@@ -144,24 +144,27 @@ const UIController = (function() {
             const html = `<option value="${value}">${text}</option>`;
             document.querySelector(DOMElements.selectGenre).insertAdjacentHTML('beforeend', html);
         }, 
-        createSearch(name, followers,images) {
-            const searchList = document.querySelector(DOMElements.divSearch)
-            searchList.innerHTML = ""
-            const html =   `
-                <div class="container">
-                <div class="search" id="id-search">
-                <article>
-                <h5>${name}</h5>
-                <p>Followers: ${followers}</p>
-                <img src="${images}" alt=""/>
-                </article>
-                </div>    
-                `;
-            searchList.insertAdjacentHTML('afterend', html)
+        createSearch(id,name, followers,images) {
+          
+         
+        
+                const html =   `    
+                  
+                    <article id="${id}">
+                    <h5>${name}</h5>
+                    <p>Followers: ${followers}</p>
+                    <img src="${images}" alt=""/>
+                    </article>
+                 
+                 
+                    `;
+                document.querySelector(DOMElements.divSearch).insertAdjacentHTML('beforeend', html)
+            
         }, 
 
         createPlaylist(text, value) {
             const html = `<option value="${value}">${text}</option>`;
+
             document.querySelector(DOMElements.selectPlaylist).insertAdjacentHTML('beforeend', html);
         },
 
@@ -243,22 +246,24 @@ const APPController = (function(UICtrl, APICtrl) {
     }
     // GET SEARCH FOR INPUT !!
         DOMInputs.btn_search.addEventListener("click", async (e)=>{
+            
+            
             e.preventDefault()
+            
             UICtrl.resetSearchList()
-            //get the token
-            const token = await APICtrl.getToken();           
-            //store the token onto the page
-            UICtrl.storeToken(token);
-            //get the search
-            const nameId =   DOMInputs.input_search.value
-            const search = await APICtrl.getSearch(token, nameId);
-
-
             //search select element
-            for (let i = 0; i <=4 ; i++ ){
+          
+                //get the token
+                const token = await APICtrl.getToken();           
+                //store the token onto the page
+                UICtrl.storeToken(token);
+                
+                //get the search
+                const nameId =   DOMInputs.input_search.value
+                const search = await APICtrl.getSearch(token, nameId);
 
-                search.forEach(element => UICtrl.createSearch(element.name, element.followers.total, element.images[0].url));
-            }
+                search.forEach(e =>  UICtrl.createSearch(e.id,e.name, e.followers.total, e.images[0].url));
+            
         })
     
     
