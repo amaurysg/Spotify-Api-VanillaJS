@@ -20,12 +20,13 @@ const APIController = (function() {
     
     const _getGenres = async (token) => {
 
-        const result = await fetch(`https://api.spotify.com/v1/browse/categories?locale=sv_US&limit=4&offset=1`, {
+        const result = await fetch(`https://api.spotify.com/v1/browse/categories?locale=sv_US&limit=8&offset=1`, {
             method: 'GET',
             headers: { 'Authorization' : 'Bearer ' + token}
         });
 
         const data = await result.json();
+        console.log("genres::",data)
         return data.categories.items;
     }
 
@@ -140,19 +141,23 @@ const UIController = (function() {
         },
 
         // need methods to create select list option
-        createGenre(text, value) {
-            const html = `<option value="${value}">${text}</option>`;
+        createGenre(text, value, images) {
+            const html = `   <article id="${value}">
+                    <h5>${text}</h5>
+                    <img src="${images}" alt=""/> 
+                    </article>`;
             document.querySelector(DOMElements.selectGenre).insertAdjacentHTML('beforeend', html);
         }, 
+
+
         createSearch(id,name, followers,images) {
-          
-         
+           
         
                 const html =   `    
                   
                     <article id="${id}">
-                    <h5>${name}</h5>
-                    <p>Followers: ${followers}</p>
+                    <h6>${name}</h6>
+                    <p>Followers: <b>${followers}</b></p>
                     <img src="${images}" alt=""/>
                     </article>
                  
@@ -242,7 +247,7 @@ const APPController = (function(UICtrl, APICtrl) {
         //get the genres
         const genres = await APICtrl.getGenres(token);
         //populate our genres select element
-        genres.forEach(element => UICtrl.createGenre(element.name, element.id));
+        genres.forEach(element => UICtrl.createGenre(element.name, element.id, element.icons[0].url));
     }
     // GET SEARCH FOR INPUT !!
         DOMInputs.btn_search.addEventListener("click", async (e)=>{

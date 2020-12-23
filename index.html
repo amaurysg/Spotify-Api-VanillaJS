@@ -11,7 +11,7 @@
 </head>
 
 <body>
-
+    <!--  HEADER  -->
     <header>
         <div class="Header-wrapper">
             <div class="Header-container">
@@ -27,41 +27,41 @@
             </div>
         </div>
     </header>
-    <div class="search-container">
-        <input type="search" name="" id="input-search" placeholder="Search your Music">
-        <button type="button" id="btn-search"> Go!</button>
-    </div>
-    <!-- container results search -->
-    <div class="container-search" id="id-search">
-        <h1>Artists</h1>
-    </div>
 
-    <!--  PLAY LIST  POPULAR-->
+    <!-- SEARCH CONTAINER -->
+    <div class="search-wrapper">
 
-    <div id="container_test"></div>
-    <!--  <div id="container_me"></div> -->
 
-    <!-- **** div for genre **** -->
-    <div id="gen_container" class="gen-container">
+        <div class="search-container">
+            <input type="search" name="" id="input-search" placeholder="Search your Artist">
+            <button type="button" id="btn-search"> Go!</button>
+        </div>
+
 
     </div>
+    <!-- RESULTS SEARCH ARTIST -->
 
-    <div class="categories" id="categories">
-        categories here !
+    <div class="container-search" id="id-search"> </div>
+
+    <!-- SHOW GENRES -->
+    <div class="wrapper">
+        <div class="container-genres" id="select_genre"> </div>
     </div>
+
+    <!-- NEXT NEXT -->
+
     <form action="">
         <input type="hidden" id='hidden_token'>
         <div class="col-sm-6 form-group row mt-4 px-0">
-            <label for="Genre" class="form-label col-sm-2">Genre:</label>
+            <h1>Genres</h1>
             <!--   <div id="me"></div> -->
-            <ul>
-                <li id="select_genre"></li>
-            </ul>
+            <div class="select_genre" id="select_genre"></div>
 
             <select name="" id="select_genre" class="form-control form-control-sm col-sm-10">
                 <option>Select...</option>
             </select>
         </div>
+
         <div class="col-sm-6 form-group row px-0">
             <label for="Genre" class="form-label col-sm-2">Playlists:</label>
             <select name="" id="select_playlist" class="form-control form-control-sm col-sm-10">

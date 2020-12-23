@@ -60,20 +60,24 @@ header nav ul li a {
   margin: auto 0;
   font-weight: 700;
 } */
+.search-wrapper,
+.wrapper {
+  max-width: 1024px;
+  margin: 0 auto;
+}
 
 .search-container {
-  max-width: 1024px;
   min-width: 380px;
-  width: 100%;
-  margin: 0 auto;
-  margin: 20px;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0 20px 0;
 }
 #input-search {
   height: 45px;
   border-radius: 25px;
   border-color: #1db954;
-
+  font-weight: 700;
   /* border: #1db954; */
   outline: none;
   padding: 15px;
@@ -95,12 +99,19 @@ article img {
 .container {
   text-align: center;
 }
-.container-search {
+.container-search,
+.container-genres {
+  min-width: 380px;
   justify-content: center;
   margin: 0 auto;
   width: 100%;
   display: flex;
   flex-wrap: wrap;
+  text-align: center;
+}
+
+.container-genres img {
+  border-radius: 10px;
 }
 article {
   margin: 5px;
