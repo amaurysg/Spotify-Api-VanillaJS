@@ -443,7 +443,28 @@ const APPController = (function(UICtrl, APICtrl) {
         
     }
     
-    
+     // create genre change event listener
+    DOMInputs.genre.addEventListener('click', async (e) => {
+          
+    console.log("Hola para playlist")
+      
+      /*   const div = document.querySelector(".container-genres")
+        div.classList.toggle("is-hidden") */
+         //reset the playlist
+        UICtrl.resetPlaylist();
+        //get the token that's stored on the page
+        const token = UICtrl.getStoredToken().token;        
+        // get the genre select field
+        const genreSelect = UICtrl.inputField().genre;       
+        // get the genre id associated with the selected genre
+        const genreId = "hiphop";             
+        // ge the playlist based on a genre
+        const playlist = await APICtrl.getPlaylistByGenre(token, genreId);       
+        // create a playlist list item for every playlist returned
+        playlist.forEach(p => UICtrl.createPlaylist(p.name, p.tracks.href, p.tracks.id));
+      
+
+    });
     
     
     

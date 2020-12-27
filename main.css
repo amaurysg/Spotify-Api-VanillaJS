@@ -109,6 +109,10 @@ article img {
   flex-wrap: wrap;
   text-align: center;
 }
+.container-genres.is-hidden {
+  display: none;
+  visibility: hidden;
+}
 
 .container-genres img {
   border-radius: 10px;

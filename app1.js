@@ -40,7 +40,7 @@ const APIController = (function() {
         });
         
         const data = await result.json()
-        console.log("data-search", data)
+    
         return data.artists.items
     } 
 
@@ -55,21 +55,24 @@ const APIController = (function() {
         });
 
         const data = await result.json();
+        
         return data.playlists.items;
     }
 
     const _getTracks = async (token, tracksEndPoint) => {
 
         const limit = 10;
-
+    
         const result = await fetch(`${tracksEndPoint}?limit=${limit}`, {
             method: 'GET',
             headers: { 'Authorization' : 'Bearer ' + token}
         });
 
         const data = await result.json();
+       
         return data.items;
     }
+    _getTracks()
 
     const _getTrack = async (token, trackEndPoint) => {
 
@@ -113,9 +116,11 @@ const UIController = (function() {
     //object to hold references to html selectors
     const DOMElements = {
         selectGenre: '#select_genre',
+        typeGenre :'.article-genre',
         divSearch: '#id-search',
         btnSearch: "#btn-search",
         inputSearch: "#input-search",
+        divPlayList:"#id-playlist",
         selectPlaylist: '#select_playlist',
         buttonSubmit: '#btn_submit',
         divSongDetail: '#song-detail',
@@ -130,9 +135,11 @@ const UIController = (function() {
         inputField() {
             return {
                 genre: document.querySelector(DOMElements.selectGenre),
+                genreType: document.querySelector(DOMElements.typeGenre),
                 search: document.querySelector(DOMElements.divSearch),
                 btn_search: document.querySelector(DOMElements.btnSearch),
                 input_search: document.querySelector(DOMElements.inputSearch),   
+                playlist_div : document.querySelector(DOMElements.divPlayList),
                 playlist: document.querySelector(DOMElements.selectPlaylist),
                 tracks: document.querySelector(DOMElements.divSonglist),
                 submit: document.querySelector(DOMElements.buttonSubmit),
@@ -142,7 +149,7 @@ const UIController = (function() {
 
         // need methods to create select list option
         createGenre(text, value, images) {
-            const html = `   <article id="${value}">
+            const html = `   <article class="article-genre" id="id-genre">
                     <h5>${text}</h5>
                     <img src="${images}" alt=""/> 
                     </article>`;
@@ -167,10 +174,11 @@ const UIController = (function() {
             
         }, 
 
-        createPlaylist(text, value) {
-            const html = `<option value="${value}">${text}</option>`;
+        createPlaylist(text,value) {
+             const html = `<option value="${value}">${text}</option>`;
+            
 
-            document.querySelector(DOMElements.selectPlaylist).insertAdjacentHTML('beforeend', html);
+            document.querySelector(DOMElements.divPlayList).insertAdjacentHTML('beforeend', html);
         },
 
         // need method to create a track list group item 
@@ -216,7 +224,7 @@ const UIController = (function() {
         },
 
         resetPlaylist() {
-            this.inputField().playlist.innerHTML = '';
+            this.inputField().playlist_div.innerHTML = '';
             this.resetTracks();
         },
         
@@ -238,20 +246,8 @@ const APPController = (function(UICtrl, APICtrl) {
     // get input field object ref
     const DOMInputs = UICtrl.inputField();
 
-    // get genres on page load
-        const loadGenres = async () => {
-        //get the token
-        const token = await APICtrl.getToken();           
-        //store the token onto the page
-        UICtrl.storeToken(token);
-        //get the genres
-        const genres = await APICtrl.getGenres(token);
-        //populate our genres select element
-        genres.forEach(element => UICtrl.createGenre(element.name, element.id, element.icons[0].url));
-    }
     // GET SEARCH FOR INPUT !!
-        DOMInputs.btn_search.addEventListener("click", async (e)=>{
-            
+         DOMInputs.btn_search.addEventListener("click", async (e)=>{
             
             e.preventDefault()
             
@@ -265,28 +261,45 @@ const APPController = (function(UICtrl, APICtrl) {
                 
                 //get the search
                 const nameId =   DOMInputs.input_search.value
+                console.log(nameId)
                 const search = await APICtrl.getSearch(token, nameId);
 
                 search.forEach(e =>  UICtrl.createSearch(e.id,e.name, e.followers.total, e.images[0].url));
             
         })
     
+    // get genres on page load
+        const loadGenres = async () => {
+        //get the token
+        const token = await APICtrl.getToken();           
+        //store the token onto the page
+        UICtrl.storeToken(token);
+        //get the genres
+        const genres = await APICtrl.getGenres(token);
+        //populate our genres select element
+        genres.forEach(element => UICtrl.createGenre(element.name, element.id, element.icons[0].url));
+    }
     
 
-    // create genre change event listener
-    DOMInputs.genre.addEventListener('change', async () => {
-        //reset the playlist
+      // create genre change event listener
+    DOMInputs.genre.addEventListener('click', async (e) => {
+          
+        
+  
+         //reset the playlist
         UICtrl.resetPlaylist();
         //get the token that's stored on the page
         const token = UICtrl.getStoredToken().token;        
         // get the genre select field
-        const genreSelect = UICtrl.inputField().genre;       
+        const genreSelect = UICtrl.inputField().genreType;       
         // get the genre id associated with the selected genre
-        const genreId = genreSelect.options[genreSelect.selectedIndex].value;             
+        const genreId = 2020;  
+                
         // ge the playlist based on a genre
         const playlist = await APICtrl.getPlaylistByGenre(token, genreId);       
         // create a playlist list item for every playlist returned
-        playlist.forEach(p => UICtrl.createPlaylist(p.name, p.tracks.href));
+        playlist.forEach(p => UICtrl.createPlaylist(p.name, p.tracks.href, p.tracks.id));
+      
     });
      
 
@@ -329,6 +342,7 @@ const APPController = (function(UICtrl, APICtrl) {
             console.log('App is starting');
             /* loadSearch(); */
             loadGenres();
+           
         }
     }
 
