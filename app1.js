@@ -115,12 +115,14 @@ const UIController = (function() {
 
     //object to hold references to html selectors
     const DOMElements = {
-        selectGenre: '#select_genre',
-        typeGenre :'.article-genre',
         divSearch: '#id-search',
         btnSearch: "#btn-search",
         inputSearch: "#input-search",
         divPlayList:"#id-playlist",
+        
+        typeGenre :'.article-genre',
+        
+        selectGenre: '#select_genre',
         selectPlaylist: '#select_playlist',
         buttonSubmit: '#btn_submit',
         divSongDetail: '#song-detail',
@@ -140,6 +142,7 @@ const UIController = (function() {
                 btn_search: document.querySelector(DOMElements.btnSearch),
                 input_search: document.querySelector(DOMElements.inputSearch),   
                 playlist_div : document.querySelector(DOMElements.divPlayList),
+                
                 playlist: document.querySelector(DOMElements.selectPlaylist),
                 tracks: document.querySelector(DOMElements.divSonglist),
                 submit: document.querySelector(DOMElements.buttonSubmit),
@@ -149,7 +152,7 @@ const UIController = (function() {
 
         // need methods to create select list option
         createGenre(text, value, images) {
-            const html = `   <article class="article-genre" id="id-genre">
+            const html = `   <article class="article-genre" id="${value}" >
                     <h5>${text}</h5>
                     <img src="${images}" alt=""/> 
                     </article>`;
@@ -281,11 +284,9 @@ const APPController = (function(UICtrl, APICtrl) {
     }
     
 
-      // create genre change event listener
+      // create genre change event 
     DOMInputs.genre.addEventListener('click', async (e) => {
-          
         
-  
          //reset the playlist
         UICtrl.resetPlaylist();
         //get the token that's stored on the page
@@ -293,8 +294,9 @@ const APPController = (function(UICtrl, APICtrl) {
         // get the genre select field
         const genreSelect = UICtrl.inputField().genreType;       
         // get the genre id associated with the selected genre
-        const genreId = 2020;  
-                
+        const genreId = genreSelect.id
+        console.log(genreSelect)
+        console.log(genreId)
         // ge the playlist based on a genre
         const playlist = await APICtrl.getPlaylistByGenre(token, genreId);       
         // create a playlist list item for every playlist returned
