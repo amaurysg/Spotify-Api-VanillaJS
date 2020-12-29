@@ -213,7 +213,7 @@ const UIController = (function() {
         createTracksByArtist(id,name, images){
 
             const html =`
-           
+          
             <div  class="tracks_by_artist" id=${id}> <p> ${name}</p> <img src="${images}" alt=""/></div>
             `
 
@@ -223,8 +223,10 @@ const UIController = (function() {
 
 
         createPlaylist(text,value, images) {
-             const html = `<div  class="play" value="${value}">
-            <img src="${images}" alt=""/>
+             const html = `
+             <div  class="play" value="${value}">
+                <img src="${images}" alt=""/>
+               
              </div>`;
             
 
@@ -236,8 +238,8 @@ const UIController = (function() {
        
               
                <div class="type_genre" id="${value}">
-                    <p id="${value}">${text}</p>  
-                    <img id="${value}" src="${images}" alt=""/>    
+               <img id="${value}" src="${images}" alt=""/>    
+               <p id="${value}">${text}</p>  
                </div>
                
             
@@ -346,14 +348,19 @@ const APPController = (function(UICtrl, APICtrl) {
     
     //
          DOMInputs.search.addEventListener("click", async (e)=>{
+            
+            
             console.log(e.target.id)
             e.preventDefault()
-
+         
+            
+            
             UICtrl.resetTracksByArtists()
 
             const token = await APICtrl.getToken();     
             UICtrl.storeToken(token);
             const artistId = e.target.id
+          
             const tracksByArtist = await APICtrl.getTrackByArtist(token,artistId)
             tracksByArtist.forEach(t => UICtrl.createTracksByArtist(t.id, t.name, t.album.images[0].url));
             
@@ -440,6 +447,8 @@ const APPController = (function(UICtrl, APICtrl) {
             // prevent page reset
             e.preventDefault();
             UICtrl.resetTrackDetail();
+            
+           
             // get the token
             const token = UICtrl.getStoredToken().token;
             // get the track endpoint
