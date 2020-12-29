@@ -151,6 +151,7 @@ const scopes = [
         const containerSearch = document.getElementById("id-search")
         containerSearch.innerHTML=""
         const $inputSearch = document.getElementById("input-search")
+       
         $inputSearch.addEventListener("click", ()=>{
             
             dataArraySearch.forEach(artist=>{

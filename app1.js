@@ -56,7 +56,7 @@ const APIController = (function() {
         });
 
         const data = await result.json();
-        
+        console.log("data PlayList", data)
         return data.playlists.items;
     }
 
@@ -126,8 +126,7 @@ const UIController = (function() {
         divPlayList:"#id-playlist",
         
     
-        
-        /* selectGenre: '#select_genre', */
+         selectGenre: '#select_genre',
         selectPlaylist: '#select_playlist',
         buttonSubmit: '#btn_submit',
         divSongDetail: '#song-detail',
@@ -149,7 +148,7 @@ const UIController = (function() {
         //method to get input fields
         inputField() {
             return {
-                /* genre: document.querySelector(DOMElements.selectGenre), */
+                genre: document.querySelector(DOMElements.selectGenre),
                 /* genreType: document.querySelector(DOMElements.typeGenre), */
                 search: document.querySelector(DOMElements.divSearch),
                 btn_search: document.querySelector(DOMElements.btnSearch),
@@ -179,7 +178,7 @@ const UIController = (function() {
         
                 const html =   `    
                   
-                    <article  id="${id}">
+                    <article value="${name}" id="${id}">
                     <h6>${name}</h6>
                     <p>Followers: <b>${followers}</b></p>
                     <img src="${images}" alt=""/>
@@ -191,16 +190,33 @@ const UIController = (function() {
             
         }, 
 
-        createPlaylist(text,value) {
-             const html = `<option value="${value}">${text}</option>`;
+        createPlaylist(text,value, images) {
+             const html = `<div value="${value}">
+            <img src="${images}" alt=""/>
+             </div>`;
             
 
             document.querySelector(DOMElements.divPlayList).insertAdjacentHTML('beforeend', html);
         },
 
          createGenre(text, value, images){
-             const html = `<div class="types" id="${value}"> <p>${text}</p> <img src="${images}" alt=""/></div>`
-            document.querySelector(DOMElements.divGenreType).insertAdjacentHTML("beforeend", html)
+               const html = `
+       
+              
+               <div class="type_genre" id="${value}">
+                    <p id="${value}">${text}</p>  
+                    <img id="${value}" src="${images}" alt=""/>    
+               </div>
+               
+            
+               
+               
+               `;
+            document.querySelector(DOMElements.selectGenre).insertAdjacentHTML('beforeend', html);
+
+
+         /*     const html = `<div class="types" id="${value}"> <p>${text}</p> <img src="${images}" alt=""/></div>`
+            document.querySelector(DOMElements.divGenreType).insertAdjacentHTML("beforeend", html) */
             
          },
 
@@ -309,6 +325,36 @@ const APPController = (function(UICtrl, APICtrl) {
 
         
      }
+
+
+     DOMInputs.search.addEventListener("click", async (e)=>{
+         console.log(e.target.value)
+     })
+     
+
+     //Eve
+       DOMInputs.genre.addEventListener('click', async (e) => {
+          
+        console.log(e.target.id)
+        e.preventDefault()
+      
+      /*   const div = document.querySelector(".container-genres")
+        div.classList.toggle("is-hidden") */
+         //reset the playlist
+        UICtrl.resetPlaylist();
+        //get the token that's stored on the page
+        const token = UICtrl.getStoredToken().token;        
+        // get the genre select field
+             
+        // get the genre id associated with the selected genre
+        const genreId = e.target.id;             
+        // ge the playlist based on a genre
+        const playlist = await APICtrl.getPlaylistByGenre(token, genreId);       
+        // create a playlist list item for every playlist returned
+        playlist.forEach(p => UICtrl.createPlaylist(p.name, p.tracks.href,  p.images[0].url ,p.tracks.id));
+      
+
+    });
      
      
      /*   types.addEventListener("click", async ()=>{

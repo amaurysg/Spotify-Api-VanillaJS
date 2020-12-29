@@ -121,6 +121,49 @@ article {
   margin: 5px;
 }
 
+.container-genre {
+  padding: 0 15px;
+  margin-bottom: 20px;
+}
+#select_genre {
+  padding: 0 20px;
+  margin-bottom: 20px;
+  display: flex;
+  overflow: hidden;
+  overflow-x: scroll;
+}
+.type_genre {
+  margin: 5px;
+  border-color: #1db954 solid 3px;
+}
+.type_genre p {
+  margin: 0;
+  font-weight: bold;
+}
+.type_genre img {
+  border-radius: 10px;
+}
+
+.container-playlist {
+  padding: 0 20px;
+  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.container-genre {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  max-width: 1024px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  min-width: 380px;
+  margin: 0 auto;
+}
+
 #container_test {
   display: flex;
   flex-wrap: wrap;
