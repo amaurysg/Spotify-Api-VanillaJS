@@ -19,7 +19,7 @@ const APIController = (function() {
     }
 
     const _getSearch = async (token, nameId) => {
-        const limit =4
+        const limit =10
 
       const result = await fetch(`https://api.spotify.com/v1/search?q=${nameId}&type=track%2Cartist&limit=${limit}`, {
           method: 'GET',
@@ -61,7 +61,19 @@ const APIController = (function() {
     }
 
 
-    const _getTracks = async (token, tracksEndPoint) => {
+    const _getTrackByArtist = async (token, artistId)=>{
+        const market = "ES"
+        const result = await fetch(`https://api.spotify.com/v1/artists/${artistId}/top-tracks?market=ES`, {
+            method: 'GET',
+            headers: { 'Authorization' : 'Bearer ' + token}
+        })
+        const data = await result.json()
+        console.log("Data Tracks", data)
+        return data.tracks
+
+    }
+
+  /*   const _getTracks = async (token, tracksEndPoint) => {
 
         const limit = 10;
     
@@ -73,8 +85,8 @@ const APIController = (function() {
         const data = await result.json();
        
         return data.items;
-    }
-    _getTracks()
+    } */
+   /*  _getTracks()
 
     const _getTrack = async (token, trackEndPoint) => {
 
@@ -86,7 +98,7 @@ const APIController = (function() {
         const data = await result.json();
         return data;
     }
-
+ */
    
 
     return {
@@ -101,6 +113,10 @@ const APIController = (function() {
             return _getSearch(token,nameId);
         },
         
+        getTrackByArtist(token, artistId){
+            return _getTrackByArtist(token, artistId)
+        },
+
         getPlaylistByGenre(token, genreId) {
             return _getPlaylistByGenre(token, genreId);
         },
@@ -120,6 +136,7 @@ const UIController = (function() {
     //object to hold references to html selectors
     const DOMElements = {
         divSearch: '#id-search',
+        divTracks: '#id-tracks',
         btnSearch: "#btn-search",
         inputSearch: "#input-search",
 
@@ -151,6 +168,8 @@ const UIController = (function() {
                 genre: document.querySelector(DOMElements.selectGenre),
                 /* genreType: document.querySelector(DOMElements.typeGenre), */
                 search: document.querySelector(DOMElements.divSearch),
+                tracksByArtist: document.querySelector(DOMElements.divTracks),
+
                 btn_search: document.querySelector(DOMElements.btnSearch),
                 input_search: document.querySelector(DOMElements.inputSearch),   
                 playlist_div : document.querySelector(DOMElements.divPlayList),
@@ -178,10 +197,10 @@ const UIController = (function() {
         
                 const html =   `    
                   
-                    <article value="${name}" id="${id}">
-                    <h6>${name}</h6>
-                    <p>Followers: <b>${followers}</b></p>
-                    <img src="${images}" alt=""/>
+                    <article  id="${id}">
+                    <h6 id="${id}">${name}</h6>
+             
+                    <img id="${id}" src="${images}" alt=""/>
                     </article>
                  
                  
@@ -190,8 +209,21 @@ const UIController = (function() {
             
         }, 
 
+        /// create tracks by artists //
+        createTracksByArtist(id,name, images){
+
+            const html =`
+           
+            <div  class="tracks_by_artist" id=${id}> <p> ${name}</p> <img src="${images}" alt=""/></div>
+            `
+
+            document.querySelector(DOMElements.divTracks).insertAdjacentHTML('beforeend',html)
+
+        },
+
+
         createPlaylist(text,value, images) {
-             const html = `<div value="${value}">
+             const html = `<div  class="play" value="${value}">
             <img src="${images}" alt=""/>
              </div>`;
             
@@ -252,11 +284,15 @@ const UIController = (function() {
         resetSearchList(){
             this.inputField().search.innerHTML = '';
         },
-
+        
         resetTrackDetail() {
             this.inputField().songDetail.innerHTML = '';
         },
 
+        resetTracksByArtists() {
+            this.inputField().tracksByArtist.innerHTML = '';
+            
+        },
         resetTracks() {
             this.inputField().tracks.innerHTML = '';
             this.resetTrackDetail();
@@ -308,6 +344,22 @@ const APPController = (function(UICtrl, APICtrl) {
     })
     
     
+    //
+         DOMInputs.search.addEventListener("click", async (e)=>{
+            console.log(e.target.id)
+            e.preventDefault()
+
+            UICtrl.resetTracksByArtists()
+
+            const token = await APICtrl.getToken();     
+            UICtrl.storeToken(token);
+            const artistId = e.target.id
+            const tracksByArtist = await APICtrl.getTrackByArtist(token,artistId)
+            tracksByArtist.forEach(t => UICtrl.createTracksByArtist(t.id, t.name, t.album.images[0].url));
+            
+
+         })
+    
     
     // get genres on page load
      const loadGenres = async () => {
@@ -326,10 +378,6 @@ const APPController = (function(UICtrl, APICtrl) {
         
      }
 
-
-     DOMInputs.search.addEventListener("click", async (e)=>{
-         console.log(e.target.value)
-     })
      
 
      //Eve
