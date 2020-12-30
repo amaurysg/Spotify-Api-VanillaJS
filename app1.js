@@ -32,6 +32,22 @@ const APIController = (function() {
       return data.artists.items
   } 
 
+    const _getArtist = async (token, artist_Id) => {
+        
+
+      const result = await fetch(`https://api.spotify.com/v1/artists/${artist_Id}`, {
+          method: 'GET',
+          headers: { 'Authorization' : 'Bearer ' + token},
+          
+      });
+      
+      const data = await result.json()
+      const dataArray = Object.values(data)
+    
+      console.log(dataArray)
+        return dataArray
+  } 
+
     
     const _getGenres = async (token) => {
 
@@ -112,10 +128,13 @@ const APIController = (function() {
         getSearch(token, nameId) {
             return _getSearch(token,nameId);
         },
-        
-        getTrackByArtist(token, artistId){
-            return _getTrackByArtist(token, artistId)
+        getArtist(token, artist_Id) {
+            return _getArtist(token,artist_Id);
         },
+        
+       getTrackByArtist(token, artistId){
+            return _getTrackByArtist(token, artistId)
+        }, 
 
         getPlaylistByGenre(token, genreId) {
             return _getPlaylistByGenre(token, genreId);
@@ -138,6 +157,8 @@ const UIController = (function() {
         divSearch: '#id-search',
         divTracks: '#id-tracks',
         btnSearch: "#btn-search",
+
+        divArtist: "#id-artist",
         inputSearch: "#input-search",
 
         divPlayList:"#id-playlist",
@@ -169,7 +190,7 @@ const UIController = (function() {
                 /* genreType: document.querySelector(DOMElements.typeGenre), */
                 search: document.querySelector(DOMElements.divSearch),
                 tracksByArtist: document.querySelector(DOMElements.divTracks),
-
+                artist :document.querySelector(DOMElements.divArtist),
                 btn_search: document.querySelector(DOMElements.btnSearch),
                 input_search: document.querySelector(DOMElements.inputSearch),   
                 playlist_div : document.querySelector(DOMElements.divPlayList),
@@ -197,10 +218,11 @@ const UIController = (function() {
         
                 const html =   `    
                   
-                    <article  id="${id}">
-                    <h6 id="${id}">${name}</h6>
-             
+                    <article class="result-search"  id="${id}">
+                    
                     <img id="${id}" src="${images}" alt=""/>
+                    <h6 id="${id}">${name}</h6>
+                    <p>PLAY</p>
                     </article>
                  
                  
@@ -213,11 +235,28 @@ const UIController = (function() {
         createTracksByArtist(id,name, images){
 
             const html =`
-          
+            
             <div  class="tracks_by_artist" id=${id}> <p> ${name}</p> <img src="${images}" alt=""/></div>
             `
 
             document.querySelector(DOMElements.divTracks).insertAdjacentHTML('beforeend',html)
+
+        },
+
+        createArtist(id, name, images, type){
+
+            const html =`
+            <h3>Resultado principal</h3>
+            <div class="container-artist-card">
+            
+            <div  class="artist" id="${id}">
+            <img src="${images}" alt=""/> 
+            <h1>${name}</h1>
+              <p>${type}</p> </div>
+            </div>
+            `
+
+            document.querySelector(DOMElements.divArtist).insertAdjacentHTML('beforeend',html)
 
         },
 
@@ -284,13 +323,24 @@ const UIController = (function() {
         },
 
         resetSearchList(){
-            this.inputField().search.innerHTML = '';
+          
+        
+            this.inputField().search.innerHTML =  '';
+            
+          
+
+            
+
         },
         
         resetTrackDetail() {
             this.inputField().songDetail.innerHTML = '';
         },
 
+        resetArtists() {
+            this.inputField().artist.innerHTML = '';
+            
+        },
         resetTracksByArtists() {
             this.inputField().tracksByArtist.innerHTML = '';
             
@@ -304,6 +354,7 @@ const UIController = (function() {
             this.inputField().playlist_div.innerHTML = '';
             this.resetTracks();
         },
+      
         
         storeToken(value) {
             document.querySelector(DOMElements.hfToken).value = value;
@@ -340,8 +391,9 @@ const APPController = (function(UICtrl, APICtrl) {
         const nameId =   DOMInputs.input_search.value
         console.log(nameId)
         const search = await APICtrl.getSearch(token, nameId);
-        
-        search.forEach(e =>  UICtrl.createSearch(e.id,e.name, e.followers.total, e.images[0].url));
+
+ 
+    search.forEach(e =>  UICtrl.createSearch(e.id,e.name, e.followers.total, e.images[0].url)); 
         
     })
     
@@ -352,23 +404,27 @@ const APPController = (function(UICtrl, APICtrl) {
             
             console.log(e.target.id)
             e.preventDefault()
-         
             
-            
-            UICtrl.resetTracksByArtists()
+             UICtrl.resetTracksByArtists()
+
+            UICtrl.resetSearchList()
+
 
             const token = await APICtrl.getToken();     
             UICtrl.storeToken(token);
-            const artistId = e.target.id
+            const artist_Id = e.target.id
           
-            const tracksByArtist = await APICtrl.getTrackByArtist(token,artistId)
-            tracksByArtist.forEach(t => UICtrl.createTracksByArtist(t.id, t.name, t.album.images[0].url));
+            const artist = await APICtrl.getArtist(token, artist_Id)
+
+          
+             UICtrl.createArtist(artist[4], artist[6], artist[5][0].url, artist[8]);
             
+            /* id,name, images, type */
 
          })
     
     
-    // get genres on page load
+    // gea genres on page load
      const loadGenres = async () => {
         //get the token
         const token = await APICtrl.getToken();           

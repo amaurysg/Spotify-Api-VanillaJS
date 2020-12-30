@@ -1,4 +1,5 @@
 * {
+  /*  outline: red 1px solid; */
 }
 body {
   background-color: #121212;
@@ -67,37 +68,43 @@ header nav ul li a {
 }
 
 .search-container {
+  height: 80px;
+  background-color: #070707;
   min-width: 380px;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 20px 0 20px 0;
 }
 #input-search {
   height: 45px;
   border-radius: 25px;
-  border-color: #1db954;
+  /* border-color: #1db954; */
+  border: none;
   font-weight: 700;
   /* border: #1db954; */
   outline: none;
   padding: 15px;
+  margin-right: 10px;
 }
 #btn-search {
   background-color: #1db954;
   color: white;
   font-weight: 500;
-  border-color: #1db954;
+  /* border-color: #1db954; */
+  border: none;
   height: 45px;
   width: 45px;
   border-radius: 50%;
   outline: none;
 }
 article h6 {
+  margin-top: 10px;
   color: white;
+  text-transform: capitalize;
 }
 article img {
   border-radius: 50%;
-  border: 3px solid #1db954;
+  /* border: 3px solid #1db954; */
 }
 .container {
   text-align: center;
@@ -106,7 +113,7 @@ article img {
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center;
+  /* text-align: center; */
   width: 100%;
   max-width: 1024px;
   margin: 0 auto;
@@ -170,14 +177,20 @@ article {
   overflow: hidden;
   overflow-x: scroll;
 }
+.result-search,
 .type_genre,
 .play {
-  background-color: #282828;
+  background-color: #121212;
   margin: 5px;
-
   border-radius: 10px;
   height: 250px;
-  padding: 5px;
+  padding: 10px;
+  cursor: pointer;
+}
+.result-search:hover,
+.type_genre:hover,
+.play:hover {
+  background-color: #282828;
 }
 
 .type_genre p,
@@ -194,15 +207,44 @@ article {
 }
 
 .container-playlist {
-  padding: 0 20px;
   justify-content: center;
   display: flex;
-  flex-wrap: wrap;
+  overflow-x: scroll;
 }
 
 .container-playlist .play {
   margin: 5px;
   animation: play 5s;
+}
+.container-artist {
+  max-width: 1024px;
+  min-width: 380px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+.container-artist h3 {
+  color: white;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+.container-artist-card {
+  background-color: #181818;
+  /* border: red solid 1px; */
+  height: 300px;
+  width: 40%;
+  border-radius: 10px;
+  padding: 20px;
+}
+.container-artist-card img {
+  border-radius: 50%;
+}
+.container-artist-card p {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 20px;
+}
+.container-artist-card:hover {
+  background-color: #282828;
 }
 
 .container-genre {
@@ -216,6 +258,7 @@ article {
   margin-bottom: 20px;
   min-width: 380px;
   margin: 0 auto;
+  overflow: hidden;
 }
 
 #container_test {
@@ -271,6 +314,9 @@ img.track {
 
 @media screen and (min-width: 600px) {
   #select_genre {
+    overflow: initial;
+  }
+  .container-search {
     overflow: initial;
   }
 }
