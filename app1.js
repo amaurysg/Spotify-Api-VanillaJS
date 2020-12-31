@@ -236,7 +236,10 @@ const UIController = (function() {
 
             const html =`
             
-            <div  class="tracks_by_artist" id=${id}> <p> ${name}</p> <img src="${images}" alt=""/></div>
+            <div  class="tracks_by_artist" id=${id}>
+            <img src="${images}" alt=""/>
+             <p> ${name}</p>
+              </div>
             `
 
             document.querySelector(DOMElements.divTracks).insertAdjacentHTML('beforeend',html)
@@ -405,9 +408,10 @@ const APPController = (function(UICtrl, APICtrl) {
             console.log(e.target.id)
             e.preventDefault()
             
-             UICtrl.resetTracksByArtists()
+            UICtrl.resetArtists()
+            UICtrl.resetTracksByArtists()
 
-            UICtrl.resetSearchList()
+            /* UICtrl.resetSearchList() */
 
 
             const token = await APICtrl.getToken();     
@@ -416,11 +420,14 @@ const APPController = (function(UICtrl, APICtrl) {
           
             const artist = await APICtrl.getArtist(token, artist_Id)
 
-          
-             UICtrl.createArtist(artist[4], artist[6], artist[5][0].url, artist[8]);
+            //get data for arstist in one obj 
+            UICtrl.createArtist(artist[4], artist[6], artist[5][0].url, artist[8]);
             
-            /* id,name, images, type */
+          
+            const tracksByArtist = await APICtrl.getTrackByArtist(token, artist_Id)
+            tracksByArtist.forEach( t => UICtrl.createTracksByArtist(t.id,t.name,t.album.images[2].url))
 
+            /* id,name, images */
          })
     
     

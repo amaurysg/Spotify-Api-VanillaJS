@@ -1,5 +1,5 @@
 * {
-  /*  outline: red 1px solid; */
+  /*  outline: red 0.1px solid; */
 }
 body {
   background-color: #121212;
@@ -109,11 +109,12 @@ article img {
 .container {
   text-align: center;
 }
-.container-search {
+.container-search-wrapper,
+.container-playlist-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* text-align: center; */
+  text-align: center;
   width: 100%;
   max-width: 1024px;
   margin: 0 auto;
@@ -121,35 +122,53 @@ article img {
   min-width: 380px;
   margin: 0 auto;
   overflow: hidden;
+}
+.container-search {
+  padding: 0 20px;
+  margin-bottom: 20px;
+  display: flex;
+  overflow: hidden;
   overflow-x: scroll;
 }
 
 .container-tracks {
-  max-width: 1024px;
+  /*  height: 250px; */
+  overflow: hidden;
+
+  /* margin: 50px 0 0 10px; */
+  /*  max-width: 1024px;
   min-width: 380px;
   justify-content: center;
   margin: 15px auto;
   width: 100%;
   padding: 10px 15px;
-  background-color: #282828;
+  background-color: #282828; */
   /*  flex-wrap: wrap; */
-  text-align: center;
-  border-radius: 10px;
+  /* text-align: center;
+  border-radius: 10px; */
 }
 
 .tracks_by_artist {
   display: flex;
-  justify-content: space-between;
+  width: 590px;
   align-items: center;
-
+  height: 50px;
   color: white;
+  margin-top: 3px;
+  background-color: #181818;
+  border-radius: 10px;
 
-  border-bottom: #4daf64 0.5px solid;
+  /*   border-bottom: #4daf64 0.5px solid; */
+}
+
+.tracks_by_artist:hover {
+  background-color: #282828;
 }
 .tracks_by_artist img {
-  border-radius: 50%;
-  height: 50px;
-  width: 50px;
+  /* border-radius: 50%; */
+  height: 30px;
+  width: 30px;
+  margin-right: 10px;
 }
 .tracks_by_artist p {
   margin: 0;
@@ -180,7 +199,7 @@ article {
 .result-search,
 .type_genre,
 .play {
-  background-color: #121212;
+  background-color: #181818;
   margin: 5px;
   border-radius: 10px;
   height: 250px;
@@ -207,8 +226,10 @@ article {
 }
 
 .container-playlist {
-  justify-content: center;
+  padding: 0 20px;
+  margin-bottom: 20px;
   display: flex;
+  overflow: hidden;
   overflow-x: scroll;
 }
 
@@ -216,10 +237,31 @@ article {
   margin: 5px;
   animation: play 5s;
 }
+
+.container-artist-tracks {
+  max-width: 1024px;
+  min-width: 380px;
+  display: flex;
+  margin: 0 auto;
+  justify-content: flex-start;
+  align-items: center;
+  overflow: hidden;
+  height: auto;
+  margin-bottom: 20px;
+}
+.tracks-tittle {
+  visibility: hidden;
+  display: none;
+}
+.tracks-tittle.is-active {
+  visibility: visible;
+  display: block;
+  color: white;
+}
 .container-artist {
   max-width: 1024px;
   min-width: 380px;
-  margin: 0 auto;
+
   padding: 0 15px;
 }
 .container-artist h3 {
@@ -230,8 +272,9 @@ article {
 .container-artist-card {
   background-color: #181818;
   /* border: red solid 1px; */
-  height: 300px;
-  width: 40%;
+  height: 270px;
+
+  /* min-width: 380px; */
   border-radius: 10px;
   padding: 20px;
 }
@@ -239,9 +282,16 @@ article {
   border-radius: 50%;
 }
 .container-artist-card p {
+  width: 25%;
+  /* border: red solid 0.5px; */
+  background: #121212;
+  padding: 3px;
+  margin: 0;
   text-transform: uppercase;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 16px;
+  border-radius: 15px;
+  text-align: center;
 }
 .container-artist-card:hover {
   background-color: #282828;
@@ -316,7 +366,22 @@ img.track {
   #select_genre {
     overflow: initial;
   }
-  .container-search {
+  .container-search,
+  .container-playlist {
     overflow: initial;
+  }
+}
+@media screen and (max-width: 680px) {
+  .container-artist-tracks {
+    flex-direction: column;
+  }
+  .container-tracks {
+    margin-top: 10px;
+    margin-bottom: 30px;
+    padding: 20px;
+    /* border: #1db954 solid 1px; */
+  }
+  .tracks_by_artist {
+    width: auto;
   }
 }
