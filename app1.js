@@ -77,15 +77,27 @@ const APIController = (function() {
     }
 
 
-    const _getTrackByArtist = async (token, artistId)=>{
-        const market = "ES"
-        const result = await fetch(`https://api.spotify.com/v1/artists/${artistId}/top-tracks?market=ES`, {
+    const _getTrackByArtist = async (token, artist_Id)=>{
+    
+        const result = await fetch(`https://api.spotify.com/v1/artists/${artist_Id}/top-tracks?market=ES`, {
             method: 'GET',
             headers: { 'Authorization' : 'Bearer ' + token}
         })
         const data = await result.json()
-        console.log("Data Tracks", data)
+        console.log("tracks", data)
         return data.tracks
+
+    }
+    const _getAlbums = async (token, artist_Id)=>{
+  
+        const result = await fetch(`https://api.spotify.com/v1/artists/${artist_Id}/albums?market=ES&limit=6&offset=0`, {
+            method: 'GET',
+            headers: { 'Authorization' : 'Bearer ' + token}
+        })
+        const data = await result.json()
+        console.log("Data albums", data.items)
+
+        return data.items
 
     }
 
@@ -136,6 +148,10 @@ const APIController = (function() {
             return _getTrackByArtist(token, artistId)
         }, 
 
+       getAlbums(token, artistId){
+            return _getAlbums(token, artistId)
+        }, 
+
         getPlaylistByGenre(token, genreId) {
             return _getPlaylistByGenre(token, genreId);
         },
@@ -159,6 +175,7 @@ const UIController = (function() {
         btnSearch: "#btn-search",
 
         divArtist: "#id-artist",
+        divAlbums: "#id-albums",
         playIcon: ".play-icon",
         inputSearch: "#input-search",
 
@@ -191,6 +208,7 @@ const UIController = (function() {
                 /* genreType: document.querySelector(DOMElements.typeGenre), */
                 search: document.querySelector(DOMElements.divSearch),
                 tracksByArtist: document.querySelector(DOMElements.divTracks),
+                albums: document.querySelector(DOMElements.divAlbums),
                 artist :document.querySelector(DOMElements.divArtist),
                 btn_search: document.querySelector(DOMElements.btnSearch),
                 input_search: document.querySelector(DOMElements.inputSearch),   
@@ -244,6 +262,19 @@ const UIController = (function() {
             `
 
             document.querySelector(DOMElements.divTracks).insertAdjacentHTML('beforeend',html)
+
+        },
+        createAlbums(id, name, images){
+              const html =`
+            
+            <div  class="albums_by_artist" id="${id}">
+            
+             <img src="${images}" alt=""/>
+             <p> ${name}</p>
+              </div>
+            `
+
+            document.querySelector(DOMElements.divAlbums).insertAdjacentHTML('beforeend',html)
 
         },
 
@@ -345,6 +376,10 @@ const UIController = (function() {
             this.inputField().artist.innerHTML = '';
             
         },
+        resetAlbums() {
+            this.inputField().albums.innerHTML = '';
+            
+        },
         resetTracksByArtists() {
             this.inputField().tracksByArtist.innerHTML = '';
             
@@ -411,6 +446,7 @@ const APPController = (function(UICtrl, APICtrl) {
             
             UICtrl.resetArtists()
             UICtrl.resetTracksByArtists()
+            UICtrl.resetAlbums()
 
             /* UICtrl.resetSearchList() */
 
@@ -427,8 +463,13 @@ const APPController = (function(UICtrl, APICtrl) {
             
             const icon_play = document.querySelector(".play-icon")
             console.log(icon_play)
+
             const tracksByArtist = await APICtrl.getTrackByArtist(token, artist_Id)
             tracksByArtist.forEach( t => UICtrl.createTracksByArtist(t.id,t.name,t.album.images[2].url))
+
+
+            const albums = await APICtrl.getAlbums(token,artist_Id)
+            albums.forEach(a => UICtrl.createAlbums(a.id, a.name, a.images[1].url))
 
             /* id,name, images */
          })

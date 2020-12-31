@@ -144,7 +144,7 @@ article img {
   /*  animation: play 3s ease 0.1s iteration-count direction forwards; */
 }
 .play-icon:hover {
-  visibility: visible;
+  /*  background-color: red; */
 }
 @keyframes hola {
   0% {
@@ -219,7 +219,8 @@ article {
   padding: 0 15px;
   margin-bottom: 20px;
 }
-#select_genre {
+#select_genre,
+#id-albums {
   padding: 0 20px;
   margin-bottom: 20px;
   display: flex;
@@ -228,6 +229,7 @@ article {
 }
 .result-search,
 .type_genre,
+.albums_by_artist,
 .play {
   position: relative;
   background-color: #181818;
@@ -239,11 +241,13 @@ article {
 }
 .result-search:hover,
 .type_genre:hover,
+.albums_by_artist:hover,
 .play:hover {
   background-color: #282828;
 }
 
 .type_genre p,
+.albums_by_artist p,
 .play p {
   text-align: center;
   margin: 0;
@@ -328,7 +332,8 @@ article {
   background-color: #282828;
 }
 
-.container-genre {
+.container-genre,
+.container-albums {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -394,7 +399,8 @@ img.track {
 }
 
 @media screen and (min-width: 600px) {
-  #select_genre {
+  #select_genre,
+  #id-albums {
     overflow: initial;
   }
   .container-search,
