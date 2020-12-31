@@ -159,6 +159,7 @@ const UIController = (function() {
         btnSearch: "#btn-search",
 
         divArtist: "#id-artist",
+        playIcon: ".play-icon",
         inputSearch: "#input-search",
 
         divPlayList:"#id-playlist",
@@ -194,7 +195,7 @@ const UIController = (function() {
                 btn_search: document.querySelector(DOMElements.btnSearch),
                 input_search: document.querySelector(DOMElements.inputSearch),   
                 playlist_div : document.querySelector(DOMElements.divPlayList),
-                
+                play_icon: document.querySelector(DOMElements.playIcon),
                 playlist: document.querySelector(DOMElements.selectPlaylist),
 
                 /* genres: document.querySelector(DOMElements.divGenre), */
@@ -222,7 +223,7 @@ const UIController = (function() {
                     
                     <img id="${id}" src="${images}" alt=""/>
                     <h6 id="${id}">${name}</h6>
-                    <p>PLAY</p>
+                    <div class="play-icon"></div>
                     </article>
                  
                  
@@ -423,12 +424,16 @@ const APPController = (function(UICtrl, APICtrl) {
             //get data for arstist in one obj 
             UICtrl.createArtist(artist[4], artist[6], artist[5][0].url, artist[8]);
             
-          
+            
+            const icon_play = document.querySelector(".play-icon")
+            console.log(icon_play)
             const tracksByArtist = await APICtrl.getTrackByArtist(token, artist_Id)
             tracksByArtist.forEach( t => UICtrl.createTracksByArtist(t.id,t.name,t.album.images[2].url))
 
             /* id,name, images */
          })
+         
+
     
     
     // gea genres on page load

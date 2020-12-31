@@ -130,6 +130,36 @@ article img {
   overflow: hidden;
   overflow-x: scroll;
 }
+.play-icon {
+  position: absolute;
+  height: 40px;
+  width: 40px;
+  background-color: #1db954;
+  border-radius: 50%;
+  top: calc(62% - 40px);
+  right: 10%;
+  animation: hola 1s;
+  transition: 1s;
+
+  /*  animation: play 3s ease 0.1s iteration-count direction forwards; */
+}
+.play-icon:hover {
+  visibility: visible;
+}
+@keyframes hola {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  50% {
+    transform: translateY(25px);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
 
 .container-tracks {
   /*  height: 250px; */
@@ -199,6 +229,7 @@ article {
 .result-search,
 .type_genre,
 .play {
+  position: relative;
   background-color: #181818;
   margin: 5px;
   border-radius: 10px;
