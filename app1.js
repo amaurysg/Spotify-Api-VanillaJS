@@ -79,7 +79,7 @@ const APIController = (function() {
 
     const _getTrackByArtist = async (token, artist_Id)=>{
     
-        const result = await fetch(`https://api.spotify.com/v1/artists/${artist_Id}/top-tracks?market=ES`, {
+        const result = await fetch(`https://api.spotify.com/v1/artists/${artist_Id}/top-tracks?market=ES&limit=4&offset=1`, {
             method: 'GET',
             headers: { 'Authorization' : 'Bearer ' + token}
         })
@@ -90,7 +90,7 @@ const APIController = (function() {
     }
     const _getAlbums = async (token, artist_Id)=>{
   
-        const result = await fetch(`https://api.spotify.com/v1/artists/${artist_Id}/albums?market=ES&limit=6&offset=0`, {
+        const result = await fetch(`https://api.spotify.com/v1/artists/${artist_Id}/albums?market=ES&limit=5&offset=0`, {
             method: 'GET',
             headers: { 'Authorization' : 'Bearer ' + token}
         })
@@ -264,13 +264,14 @@ const UIController = (function() {
             document.querySelector(DOMElements.divTracks).insertAdjacentHTML('beforeend',html)
 
         },
-        createAlbums(id, name, images){
+        createAlbums(id, name, images, artist){
               const html =`
             
             <div  class="albums_by_artist" id="${id}">
             
              <img src="${images}" alt=""/>
-             <p> ${name}</p>
+             <p class="p-tittle"> ${name}</p>
+             <h6>${artist}</h6>
               </div>
             `
 
@@ -469,7 +470,7 @@ const APPController = (function(UICtrl, APICtrl) {
 
 
             const albums = await APICtrl.getAlbums(token,artist_Id)
-            albums.forEach(a => UICtrl.createAlbums(a.id, a.name, a.images[1].url))
+            albums.forEach(a => UICtrl.createAlbums(a.id, a.name, a.images[1].url, a.artists[0].name))
 
             /* id,name, images */
          })

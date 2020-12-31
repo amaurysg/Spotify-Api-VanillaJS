@@ -259,7 +259,25 @@ article {
 .play img {
   border-radius: 10px;
 }
+.albums_by_artist img {
+  border-radius: 10px;
+}
+.albums_by_artist p {
+  margin: 15px 0 0 0;
 
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+  color: white;
+  text-align: left;
+}
+
+.albums_by_artist h6 {
+  color: #b3b3b3;
+  text-align: left;
+  font-weight: lighter;
+}
 .container-playlist {
   padding: 0 20px;
   margin-bottom: 20px;
@@ -413,6 +431,8 @@ img.track {
     flex-direction: column;
   }
   .container-tracks {
+    height: 280px;
+    overflow-y: scroll;
     margin-top: 10px;
     margin-bottom: 30px;
     padding: 20px;
