@@ -100,6 +100,11 @@ const APIController = (function() {
         return data.items
 
     }
+    const _miliTomin =  (durations) => {
+                const minutes = Math.floor(durations / 60000);
+                 const seconds = ((durations % 60000) / 1000).toFixed(0);
+         return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+        }
 
   /*   const _getTracks = async (token, tracksEndPoint) => {
 
@@ -146,6 +151,9 @@ const APIController = (function() {
         
        getTrackByArtist(token, artistId){
             return _getTrackByArtist(token, artistId)
+        }, 
+       miliTomin(durations){
+            return _miliTomin(durations)
         }, 
 
        getAlbums(token, artistId){
@@ -251,14 +259,21 @@ const UIController = (function() {
         }, 
 
         /// create tracks by artists //
-        createTracksByArtist(id,name, images){
+        createTracksByArtist(id,name, images, artist, durations){
 
             const html =`
             
             <div  class="tracks_by_artist" id=${id}>
             <img src="${images}" alt=""/>
-             <p> ${name}</p>
-              </div>
+           <div class="tracks-info">
+                <div class="tracks-names-artist">
+                     <p> ${name}</p>
+                     <p>${artist}</p>
+                </div>
+                 <p>${durations}</p>
+           </div>
+              
+             </div>
             `
 
             document.querySelector(DOMElements.divTracks).insertAdjacentHTML('beforeend',html)
@@ -433,7 +448,7 @@ const APPController = (function(UICtrl, APICtrl) {
         const search = await APICtrl.getSearch(token, nameId);
 
  
-    search.forEach(e =>  UICtrl.createSearch(e.id,e.name, e.followers.total, e.images[0].url)); 
+        search.forEach(e =>  UICtrl.createSearch(e.id,e.name, e.followers.total, e.images[0].url)); 
         
     })
     
@@ -466,7 +481,15 @@ const APPController = (function(UICtrl, APICtrl) {
             console.log(icon_play)
 
             const tracksByArtist = await APICtrl.getTrackByArtist(token, artist_Id)
-            tracksByArtist.forEach( t => UICtrl.createTracksByArtist(t.id,t.name,t.album.images[2].url))
+
+            //I used slice for limit num of tracks
+            
+            tracksByArtist.slice(0,4).forEach( t =>{
+                
+                const min = APICtrl.miliTomin(t.duration_ms)
+                UICtrl.createTracksByArtist(t.id,t.name,t.album.images[2].url,t.artists[0].name, min)
+                            })
+            
 
 
             const albums = await APICtrl.getAlbums(token,artist_Id)

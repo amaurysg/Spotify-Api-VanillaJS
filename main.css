@@ -80,7 +80,7 @@ header nav ul li a {
   border-radius: 25px;
   /* border-color: #1db954; */
   border: none;
-  font-weight: 700;
+  font-weight: 400;
   /* border: #1db954; */
   outline: none;
   padding: 15px;
@@ -179,14 +179,15 @@ article img {
 }
 
 .tracks_by_artist {
+  padding: 10px;
   display: flex;
   width: 590px;
   align-items: center;
-  height: 50px;
+  height: 60px;
   color: white;
   margin-top: 3px;
   background-color: #181818;
-  border-radius: 10px;
+  border-radius: 5px;
 
   /*   border-bottom: #4daf64 0.5px solid; */
 }
@@ -196,12 +197,18 @@ article img {
 }
 .tracks_by_artist img {
   /* border-radius: 50%; */
-  height: 30px;
-  width: 30px;
+  height: 45px;
+  width: 45px;
   margin-right: 10px;
 }
 .tracks_by_artist p {
   margin: 0;
+}
+.tracks-names-artist {
+  margin-right: 30px;
+}
+.tracks-info {
+  display: flex;
 }
 .container-genres.is-hidden {
   display: none;
@@ -431,8 +438,6 @@ img.track {
     flex-direction: column;
   }
   .container-tracks {
-    height: 280px;
-    overflow-y: scroll;
     margin-top: 10px;
     margin-bottom: 30px;
     padding: 20px;
