@@ -136,13 +136,20 @@ article img {
   width: 40px;
   background-color: #1db954;
   border-radius: 50%;
-  top: calc(62% - 40px);
+  margin-top: -40px;
+  /*  top: calc(62% - 40px); */
   right: 10%;
-  animation: hola 1s;
-  transition: 1s;
+  /* animation: hola 1s; */
+  transition: 0.5s;
+  opacity: 0;
 
   /*  animation: play 3s ease 0.1s iteration-count direction forwards; */
 }
+.result-search:hover .play-icon {
+  margin-top: -70px;
+  opacity: 1;
+}
+
 .play-icon:hover {
   /*  background-color: red; */
 }
@@ -227,7 +234,8 @@ article {
   margin-bottom: 20px;
 }
 #select_genre,
-#id-albums {
+#id-albums,
+#id-related {
   padding: 0 20px;
   margin-bottom: 20px;
   display: flex;
@@ -237,6 +245,7 @@ article {
 .result-search,
 .type_genre,
 .albums_by_artist,
+.related_by_artist,
 .play {
   position: relative;
   background-color: #181818;
@@ -245,16 +254,19 @@ article {
   height: 250px;
   padding: 10px;
   cursor: pointer;
+  overflow: hidden;
 }
 .result-search:hover,
 .type_genre:hover,
 .albums_by_artist:hover,
+.related_by_artist:hover,
 .play:hover {
   background-color: #282828;
 }
 
 .type_genre p,
 .albums_by_artist p,
+.related_by_artist p,
 .play p {
   text-align: center;
   margin: 0;
@@ -266,10 +278,12 @@ article {
 .play img {
   border-radius: 10px;
 }
-.albums_by_artist img {
+.albums_by_artist img,
+.related_by_artist img {
   border-radius: 10px;
 }
-.albums_by_artist p {
+.albums_by_artist p,
+.related_by_artist p {
   margin: 15px 0 0 0;
 
   overflow: hidden;
@@ -280,9 +294,11 @@ article {
   text-align: left;
 }
 
-.albums_by_artist h6 {
+.albums_by_artist h6,
+.related_by_artist h6 {
   color: #b3b3b3;
   text-align: left;
+  text-transform: capitalize;
   font-weight: lighter;
 }
 .container-playlist {
@@ -358,7 +374,8 @@ article {
 }
 
 .container-genre,
-.container-albums {
+.container-albums,
+.container-related {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -425,7 +442,8 @@ img.track {
 
 @media screen and (min-width: 600px) {
   #select_genre,
-  #id-albums {
+  #id-albums,
+  #id-related {
     overflow: initial;
   }
   .container-search,

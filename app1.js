@@ -98,14 +98,31 @@ const APIController = (function() {
         console.log("Data albums", data.items)
 
         return data.items
-
     }
+
+
+
+
     const _miliTomin =  (durations) => {
                 const minutes = Math.floor(durations / 60000);
                  const seconds = ((durations % 60000) / 1000).toFixed(0);
          return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
         }
 
+    const _getRelated = async (token, artist_Id)=>{
+
+        const result = await fetch( `https://api.spotify.com/v1/artists/${artist_Id}/related-artists`,  {
+            method: 'GET',
+            headers: { 'Authorization' : 'Bearer ' + token}
+        })
+
+
+        const data = await result.json()
+       
+        return data.artists
+
+
+    }
   /*   const _getTracks = async (token, tracksEndPoint) => {
 
         const limit = 10;
@@ -159,6 +176,10 @@ const APIController = (function() {
        getAlbums(token, artistId){
             return _getAlbums(token, artistId)
         }, 
+        getRelated(token, artist_Id){
+            return _getRelated(token, artist_Id)
+        }, 
+  
 
         getPlaylistByGenre(token, genreId) {
             return _getPlaylistByGenre(token, genreId);
@@ -184,7 +205,8 @@ const UIController = (function() {
 
         divArtist: "#id-artist",
         divAlbums: "#id-albums",
-        playIcon: ".play-icon",
+        divRelated: "#id-related",
+        
         inputSearch: "#input-search",
 
         divPlayList:"#id-playlist",
@@ -217,11 +239,12 @@ const UIController = (function() {
                 search: document.querySelector(DOMElements.divSearch),
                 tracksByArtist: document.querySelector(DOMElements.divTracks),
                 albums: document.querySelector(DOMElements.divAlbums),
+                related: document.querySelector(DOMElements.divRelated),
                 artist :document.querySelector(DOMElements.divArtist),
                 btn_search: document.querySelector(DOMElements.btnSearch),
                 input_search: document.querySelector(DOMElements.inputSearch),   
                 playlist_div : document.querySelector(DOMElements.divPlayList),
-                play_icon: document.querySelector(DOMElements.playIcon),
+              
                 playlist: document.querySelector(DOMElements.selectPlaylist),
 
                 /* genres: document.querySelector(DOMElements.divGenre), */
@@ -250,6 +273,7 @@ const UIController = (function() {
                     <img id="${id}" src="${images}" alt=""/>
                     <h6 id="${id}">${name}</h6>
                     <div class="play-icon"></div>
+                   
                     </article>
                  
                  
@@ -286,11 +310,27 @@ const UIController = (function() {
             
              <img src="${images}" alt=""/>
              <p class="p-tittle"> ${name}</p>
+             <div class="play-icon"></div>
              <h6>${artist}</h6>
               </div>
             `
 
             document.querySelector(DOMElements.divAlbums).insertAdjacentHTML('beforeend',html)
+
+        },
+        createRelated( id, name, images, type){
+            /* id, name, images, type*/
+              const html =`
+            
+            <div  class="related_by_artist" id="${id}">
+            
+             <img src="${images}" alt=""/>
+             <p class="p-tittle"> ${name}</p>
+             <h6>${type}</h6>
+              </div>
+            `
+
+            document.querySelector(DOMElements.divRelated).insertAdjacentHTML('beforeend',html)
 
         },
 
@@ -374,14 +414,9 @@ const UIController = (function() {
         },
 
         resetSearchList(){
-          
-        
+                 
             this.inputField().search.innerHTML =  '';
             
-          
-
-            
-
         },
         
         resetTrackDetail() {
@@ -400,6 +435,11 @@ const UIController = (function() {
             this.inputField().tracksByArtist.innerHTML = '';
             
         },
+        resetRelated() {
+            this.inputField().related.innerHTML = '';
+            
+        },
+
         resetTracks() {
             this.inputField().tracks.innerHTML = '';
             this.resetTrackDetail();
@@ -463,7 +503,7 @@ const APPController = (function(UICtrl, APICtrl) {
             UICtrl.resetArtists()
             UICtrl.resetTracksByArtists()
             UICtrl.resetAlbums()
-
+            UICtrl.resetRelated()
             /* UICtrl.resetSearchList() */
 
 
@@ -477,9 +517,6 @@ const APPController = (function(UICtrl, APICtrl) {
             UICtrl.createArtist(artist[4], artist[6], artist[5][0].url, artist[8]);
             
             
-            const icon_play = document.querySelector(".play-icon")
-            console.log(icon_play)
-
             const tracksByArtist = await APICtrl.getTrackByArtist(token, artist_Id)
 
             //I used slice for limit num of tracks
@@ -492,10 +529,15 @@ const APPController = (function(UICtrl, APICtrl) {
             
 
 
-            const albums = await APICtrl.getAlbums(token,artist_Id)
+            const albums = await APICtrl.getAlbums(token, artist_Id)
             albums.forEach(a => UICtrl.createAlbums(a.id, a.name, a.images[1].url, a.artists[0].name))
 
-            /* id,name, images */
+
+             const related = await APICtrl.getRelated(token, artist_Id)
+             console.log(related)
+             related.slice(0,5).forEach(r => UICtrl.createRelated(r.id,r.name, r.images[1].url, r.type))
+
+            /* id, name, images, type*/
          })
          
 
