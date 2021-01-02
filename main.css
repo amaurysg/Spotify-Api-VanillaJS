@@ -150,24 +150,6 @@ article img {
   opacity: 1;
 }
 
-.play-icon:hover {
-  /*  background-color: red; */
-}
-@keyframes hola {
-  0% {
-    transform: translateY(0);
-    opacity: 0;
-  }
-  50% {
-    transform: translateY(25px);
-    opacity: 0.5;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
 .container-tracks {
   /*  height: 250px; */
   overflow: hidden;
@@ -254,7 +236,6 @@ article {
   height: 250px;
   padding: 10px;
   cursor: pointer;
-  overflow: hidden;
 }
 .result-search:hover,
 .type_genre:hover,
