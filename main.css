@@ -1,5 +1,6 @@
 * {
-  /*  outline: red 0.1px solid; */
+  /* outline: red 0.1px solid; */
+  box-sizing: border-box;
 }
 body {
   background-color: #121212;
@@ -131,6 +132,9 @@ article img {
   overflow-x: scroll;
 }
 .play-icon {
+  background-image: url("./assets/img/play.png");
+  background-size: cover;
+
   position: absolute;
   height: 40px;
   width: 40px;
@@ -142,10 +146,14 @@ article img {
   /* animation: hola 1s; */
   transition: 0.5s;
   opacity: 0;
+  box-shadow: 0px 5px 26px -5px rgba(0, 0, 0, 0.76);
 
   /*  animation: play 3s ease 0.1s iteration-count direction forwards; */
 }
-.result-search:hover .play-icon {
+.result-search:hover .play-icon,
+.albums_by_artist:hover .play-icon,
+.related_by_artist:hover .play-icon,
+.type_genre:hover .play-icon {
   margin-top: -70px;
   opacity: 1;
 }
@@ -170,7 +178,7 @@ article img {
 .tracks_by_artist {
   padding: 10px;
   display: flex;
-  width: 590px;
+  /*   width: 590px; */
   align-items: center;
   height: 60px;
   color: white;
@@ -178,7 +186,7 @@ article img {
   background-color: #181818;
   border-radius: 5px;
 
-  /*   border-bottom: #4daf64 0.5px solid; */
+  /* border: #4daf64 0.5px solid; */
 }
 
 .tracks_by_artist:hover {
@@ -194,10 +202,16 @@ article img {
   margin: 0;
 }
 .tracks-names-artist {
-  margin-right: 30px;
 }
 .tracks-info {
+  width: 100%;
   display: flex;
+  justify-content: space-between;
+}
+.min {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .container-genres.is-hidden {
   display: none;
@@ -276,7 +290,8 @@ article {
 }
 
 .albums_by_artist h6,
-.related_by_artist h6 {
+.related_by_artist h6,
+.tracks-names-artist h6 {
   color: #b3b3b3;
   text-align: left;
   text-transform: capitalize;
@@ -298,7 +313,9 @@ article {
 .container-artist-tracks {
   max-width: 1024px;
   min-width: 380px;
-  display: flex;
+  /*  display: flex; */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   margin: 0 auto;
   justify-content: flex-start;
   align-items: center;
@@ -318,7 +335,7 @@ article {
 .container-artist {
   max-width: 1024px;
   min-width: 380px;
-
+  position: relative;
   padding: 0 15px;
 }
 .container-artist h3 {
@@ -329,8 +346,9 @@ article {
 .container-artist-card {
   background-color: #181818;
   /* border: red solid 1px; */
-  height: 270px;
+  /*  height: 270px; */
 
+  /* border: #1db954 solid 0.5px; */
   /* min-width: 380px; */
   border-radius: 10px;
   padding: 20px;
@@ -352,6 +370,9 @@ article {
 }
 .container-artist-card:hover {
   background-color: #282828;
+}
+.container-artist-card:hover .play-icon {
+  opacity: 1;
 }
 
 .container-genre,
@@ -434,12 +455,17 @@ img.track {
 }
 @media screen and (max-width: 680px) {
   .container-artist-tracks {
+    display: flex;
     flex-direction: column;
+  }
+  .container-artist {
+    width: 100%;
   }
   .container-tracks {
     margin-top: 10px;
     margin-bottom: 30px;
     padding: 20px;
+    width: 100%;
     /* border: #1db954 solid 1px; */
   }
   .tracks_by_artist {

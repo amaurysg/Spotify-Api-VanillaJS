@@ -292,10 +292,10 @@ const UIController = (function() {
            <div class="tracks-info">
                 <div class="tracks-names-artist">
                      <p> ${name}</p>
-                     <p>${artist}</p>
+                     <h6>${artist}</h6>
                 </div>
-                 <p>${durations}</p>
-           </div>
+                 <div class="min">${durations}<div>
+                    
               
              </div>
             `
@@ -310,8 +310,8 @@ const UIController = (function() {
             
              <img src="${images}" alt=""/>
              <p class="p-tittle"> ${name}</p>
-             <div class="play-icon"></div>
              <h6>${artist}</h6>
+             <div class="play-icon"></div>
               </div>
             `
 
@@ -327,6 +327,7 @@ const UIController = (function() {
              <img src="${images}" alt=""/>
              <p class="p-tittle"> ${name}</p>
              <h6>${type}</h6>
+             <div class="play-icon"></div>
               </div>
             `
 
@@ -337,13 +338,15 @@ const UIController = (function() {
         createArtist(id, name, images, type){
 
             const html =`
-            <h3>Resultado principal</h3>
+        
             <div class="container-artist-card">
             
             <div  class="artist" id="${id}">
             <img src="${images}" alt=""/> 
             <h1>${name}</h1>
               <p>${type}</p> </div>
+          
+              <div class="play-icon"></div>
             </div>
             `
 
@@ -370,6 +373,7 @@ const UIController = (function() {
                <div class="type_genre" id="${value}">
                <img id="${value}" src="${images}" alt=""/>    
                <p id="${value}">${text}</p>  
+               <div class="play-icon"></div>
                </div>
                
             
