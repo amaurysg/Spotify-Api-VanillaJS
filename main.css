@@ -76,6 +76,21 @@ header nav ul li a {
   justify-content: center;
   align-items: center;
 }
+.search-components {
+  border-radius: 25px;
+  background-color: white;
+}
+.search-browser {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("./assets/img/lupa2.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 20px;
+  width: 20px;
+  margin: auto 5px auto 10px;
+}
 #input-search {
   height: 45px;
   border-radius: 25px;
@@ -84,7 +99,7 @@ header nav ul li a {
   font-weight: 400;
   /* border: #1db954; */
   outline: none;
-  padding: 15px;
+  padding: 5px;
   margin-right: 10px;
 }
 #btn-search {
@@ -97,6 +112,7 @@ header nav ul li a {
   width: 45px;
   border-radius: 50%;
   outline: none;
+  margin-left: 5px;
 }
 article h6 {
   margin-top: 10px;
