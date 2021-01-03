@@ -192,6 +192,11 @@ article img {
 .tracks_by_artist:hover {
   background-color: #282828;
 }
+.tracks_by_artist:hover .icon-play-track,
+.tracks_by_artist:hover .points {
+  opacity: 1;
+}
+
 .tracks_by_artist img {
   /* border-radius: 50%; */
   height: 45px;
@@ -201,17 +206,39 @@ article img {
 .tracks_by_artist p {
   margin: 0;
 }
-.tracks-names-artist {
-}
+
 .tracks-info {
   width: 100%;
   display: flex;
   justify-content: space-between;
 }
+
+.track-details {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.track-details .min {
+}
+.icon-play-track {
+  background-image: url("/assets/img/play.png");
+  background-size: cover;
+  height: 30px;
+  width: 30px;
+  transition: 0.3s;
+  opacity: 0;
+}
 .min {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-left: 5px;
+}
+.points {
+  font-weight: bold;
+  margin: auto 0;
+  margin-left: 5px;
+  opacity: 0;
 }
 .container-genres.is-hidden {
   display: none;
@@ -470,5 +497,11 @@ img.track {
   }
   .tracks_by_artist {
     width: auto;
+  }
+  .tracks-names-artist p {
+    font-size: 14px;
+  }
+  .tracks-names-artist h6 {
+    font-size: 14px;
   }
 }

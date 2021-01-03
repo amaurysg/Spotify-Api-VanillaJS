@@ -294,7 +294,11 @@ const UIController = (function() {
                      <p> ${name}</p>
                      <h6>${artist}</h6>
                 </div>
-                 <div class="min">${durations}<div>
+                 <div class="track-details">
+                     <div class="icon-play-track"></div>
+                     <div class="min">${durations}</div>
+                     <div class="points">...</div>
+                 </div>
                     
               
              </div>
