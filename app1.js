@@ -514,7 +514,7 @@ const APPController = (function(UICtrl, APICtrl) {
             UICtrl.resetRelated()
             /* UICtrl.resetSearchList() */
 
-           
+          
             const token = await APICtrl.getToken();     
             UICtrl.storeToken(token);
             const artist_Id = e.target.id
@@ -539,12 +539,15 @@ const APPController = (function(UICtrl, APICtrl) {
 
             const albums = await APICtrl.getAlbums(token, artist_Id)
             albums.forEach(a => UICtrl.createAlbums(a.id, a.name, a.images[1].url, a.artists[0].name))
-
+            
+           const tittle_albums = document.querySelector(".tittle-albums")
+           tittle_albums.classList.add("active")
 
              const related = await APICtrl.getRelated(token, artist_Id)
              console.log(related)
              related.slice(0,5).forEach(r => UICtrl.createRelated(r.id,r.name, r.images[1].url, r.type))
-
+             const tittle_related = document.querySelector(".tittle-related")
+            tittle_related.classList.add("active")
             /* id, name, images, type*/
          })
          

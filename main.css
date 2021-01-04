@@ -273,6 +273,16 @@ article {
 
   margin-bottom: 20px;
 }
+.tittle-related,
+.tittle-albums {
+  max-width: 1024px;
+  margin: 0 auto;
+  padding-left: 15px;
+  font-size: 22px;
+  font-weight: 500;
+  color: white;
+  display: none;
+}
 .tittle-genre {
   max-width: 1024px;
   margin: 0 auto;
@@ -281,7 +291,9 @@ article {
   color: white;
   display: none;
 }
-.tittle-genre.active {
+.tittle-genre.active,
+.tittle-albums.active,
+.tittle-related.active {
   display: block;
 }
 
