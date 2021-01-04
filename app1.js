@@ -17,6 +17,24 @@ const APIController = (function() {
         const data = await result.json();
         return data.access_token;
     }
+    
+
+    const _getFeatured = async (token) => {
+        const limit =6
+        const country = "CO"
+
+      const result = await fetch(`https://api.spotify.com/v1/browse/featured-playlists?country=${country}&limit=${limit}&offset=5`, {
+          method: 'GET',
+          headers: { 'Authorization' : 'Bearer ' + token},
+          
+      });
+      
+      const data = await result.json()
+      console.log("data landing:", data.playlists.items)
+      return data.playlists.items
+  } 
+
+
 
     const _getSearch = async (token, nameId) => {
         const limit =10
@@ -57,7 +75,7 @@ const APIController = (function() {
         });    
 
         const data = await result.json();
-        console.log("genres::",data)
+        console.log("genres::",data.categories.items)
         return data.categories.items;
     }    
 
@@ -158,7 +176,9 @@ const APIController = (function() {
         getGenres(token) {
             return _getGenres(token);
         },
-
+        getFeatured(token){
+            return _getFeatured(token);
+        },
         getSearch(token, nameId) {
             return _getSearch(token,nameId);
         },
@@ -202,7 +222,7 @@ const UIController = (function() {
         divSearch: '#id-search',
         divTracks: '#id-tracks',
         btnSearch: "#btn-search",
-
+        divFeatured : '#select_featured',
         divArtist: "#id-artist",
         divAlbums: "#id-albums",
         divRelated: "#id-related",
@@ -237,6 +257,7 @@ const UIController = (function() {
                 genre: document.querySelector(DOMElements.selectGenre),
                 /* genreType: document.querySelector(DOMElements.typeGenre), */
                 search: document.querySelector(DOMElements.divSearch),
+                featured : document.querySelector(DOMElements.divFeatured),
                 tracksByArtist: document.querySelector(DOMElements.divTracks),
                 albums: document.querySelector(DOMElements.divAlbums),
                 related: document.querySelector(DOMElements.divRelated),
@@ -370,6 +391,24 @@ const UIController = (function() {
             document.querySelector(DOMElements.divPlayList).insertAdjacentHTML('beforeend', html);
         },
 
+         createFeature(text, value, images){
+               const html = `
+       
+             
+               <div class="type_featured" id="${value}">
+               <img id="${value}" src="${images}" alt=""/>    
+               <p id="${value}">${text}</p>  
+             
+               </div>
+               
+            
+               
+               
+               `;
+            document.querySelector(DOMElements.divFeatured).insertAdjacentHTML('beforeend', html);
+           
+         },
+
          createGenre(text, value, images){
                const html = `
        
@@ -385,10 +424,6 @@ const UIController = (function() {
                
                `;
             document.querySelector(DOMElements.selectGenre).insertAdjacentHTML('beforeend', html);
-
-
-         /*     const html = `<div class="types" id="${value}"> <p>${text}</p> <img src="${images}" alt=""/></div>`
-            document.querySelector(DOMElements.divGenreType).insertAdjacentHTML("beforeend", html) */
             
          },
 
@@ -555,6 +590,25 @@ const APPController = (function(UICtrl, APICtrl) {
     
     
     // gea genres on page load
+     const loadFeatured= async () => {
+        //get the token
+        const token = await APICtrl.getToken();           
+        //store the token onto the page
+        UICtrl.storeToken(token);
+
+         const tittle = document.querySelector(".tittle-featured")
+            tittle.classList.add("active")
+    
+        //get the genres
+        const featured = await APICtrl.getFeatured(token);
+        //populate our genres select element
+
+       
+        featured.forEach(f => UICtrl.createFeature(f.name, f.id, f.images[0].url));
+         /* text, value, images */
+        
+     }
+
      const loadGenres = async () => {
         //get the token
         const token = await APICtrl.getToken();           
@@ -655,6 +709,7 @@ const APPController = (function(UICtrl, APICtrl) {
             console.log('App is starting');
             /* loadSearch(); */
             loadGenres();
+            loadFeatured();
            
            
         }

@@ -14,7 +14,7 @@ header {
 }
 header .Header-wrapper {
   min-width: inherit;
-  max-width: 1024px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 header .Header-container {
@@ -64,7 +64,7 @@ header nav ul li a {
 } */
 .search-wrapper,
 .wrapper {
-  max-width: 1024px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -129,11 +129,11 @@ article img {
 .container-search-wrapper,
 .container-playlist-wrapper {
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
   text-align: center;
   width: 100%;
-  max-width: 1024px;
+  max-width: 1200px;
   margin: 0 auto;
   margin-bottom: 20px;
   min-width: 380px;
@@ -179,7 +179,7 @@ article img {
   overflow: hidden;
 
   /* margin: 50px 0 0 10px; */
-  /*  max-width: 1024px;
+  /*  max-width: 1200px;
   min-width: 380px;
   justify-content: center;
   margin: 15px auto;
@@ -269,13 +269,13 @@ article {
 }
 
 .container-genre {
-  padding: 0 15px;
-
+  /*  padding: 0 15px;
+ */
   margin-bottom: 20px;
 }
 .tittle-related,
 .tittle-albums {
-  max-width: 1024px;
+  max-width: 1200px;
   margin: 0 auto;
   padding-left: 15px;
   font-size: 22px;
@@ -283,8 +283,9 @@ article {
   color: white;
   display: none;
 }
-.tittle-genre {
-  max-width: 1024px;
+.tittle-genre,
+.tittle-featured {
+  max-width: 1200px;
   margin: 0 auto;
   padding-left: 15px;
   font-weight: 400;
@@ -293,13 +294,23 @@ article {
 }
 .tittle-genre.active,
 .tittle-albums.active,
-.tittle-related.active {
+.tittle-related.active,
+.tittle-featured.active {
   display: block;
 }
 
 #select_genre,
 #id-albums,
-#id-related {
+#id-featured,
+#id-related,
+#select_featured {
+  padding: 0 20px;
+  margin-bottom: 20px;
+  display: flex;
+  overflow: hidden;
+  overflow-x: scroll;
+}
+#select_featured {
   padding: 0 20px;
   margin-bottom: 20px;
   display: flex;
@@ -308,6 +319,7 @@ article {
 }
 .result-search,
 .type_genre,
+.type_featured,
 .albums_by_artist,
 .related_by_artist,
 .play {
@@ -319,10 +331,36 @@ article {
   padding: 10px;
   cursor: pointer;
 }
+.type_featured {
+  border: #1db954 solid 1px;
+  position: relative;
+  background-color: #181818;
+  margin: 5px;
+  border-radius: 10px;
+  height: 200px;
+  width: 380px;
+  padding: 10px;
+  cursor: pointer;
+  overflow: hidden;
+}
+.type_featured img {
+  position: absolute;
+  bottom: -10px;
+  right: -20px;
+  transform: rotate(30deg);
+}
+.type_featured p {
+  color: white;
+  font-size: 30px;
+  font-weight: 700;
+  text-align: initial;
+}
+
 .result-search:hover,
 .type_genre:hover,
 .albums_by_artist:hover,
 .related_by_artist:hover,
+.type_featured:hover,
 .play:hover {
   background-color: #282828;
 }
@@ -379,7 +417,7 @@ article {
 }
 
 .container-artist-tracks {
-  max-width: 1024px;
+  max-width: 1200px;
   min-width: 380px;
   /*  display: flex; */
   display: grid;
@@ -401,7 +439,7 @@ article {
   color: white;
 }
 .container-artist {
-  max-width: 1024px;
+  max-width: 1200px;
   min-width: 380px;
   position: relative;
   padding: 0 15px;
@@ -441,18 +479,32 @@ article {
 }
 .container-artist-card:hover .play-icon {
   opacity: 1;
+  box-shadow: 0 7px 17px -8px rgba(0, 0, 0, 0.8);
 }
 
 .container-genre,
 .container-albums,
 .container-related {
   display: flex;
-  justify-content: center;
+  /*  justify-content: center; */
   align-items: center;
   text-align: center;
   width: 100%;
-  max-width: 1024px;
+  max-width: 1200px;
   margin: 0 auto;
+  margin-bottom: 20px;
+  min-width: 380px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+.container-featured {
+  max-width: 1200px;
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  text-align: center;
+  /* width: 90%; */
+
   margin-bottom: 20px;
   min-width: 380px;
   margin: 0 auto;
@@ -510,10 +562,32 @@ img.track {
   border: 1px solid #8a8a8a;
 }
 
+footer {
+  border: red solid 1px;
+  height: 100px;
+  box-sizing: border-box;
+}
+footer .footer-container {
+  display: grid;
+  grid-template-columns: 75% 1fr;
+}
+.footer-container .footer-container_col1 {
+  border: blue solid 1px;
+  height: 100px;
+}
+.btn-scroll {
+  height: 25px;
+  width: 25px;
+  background-color: #1db954;
+  border-radius: 50%;
+}
+
 @media screen and (min-width: 600px) {
   #select_genre,
+  #id-featured,
   #id-albums,
-  #id-related {
+  #id-related,
+  #select_featured {
     overflow: initial;
   }
   .container-search,
@@ -522,6 +596,14 @@ img.track {
   }
 }
 @media screen and (max-width: 680px) {
+  .type_featured {
+    height: 250px;
+    min-width: 160px;
+  }
+  .type_featured p {
+    font-size: 16px;
+  }
+
   .container-artist-tracks {
     display: flex;
     flex-direction: column;
