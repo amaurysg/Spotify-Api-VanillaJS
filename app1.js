@@ -373,7 +373,7 @@ const UIController = (function() {
          createGenre(text, value, images){
                const html = `
        
-              
+             
                <div class="type_genre" id="${value}">
                <img id="${value}" src="${images}" alt=""/>    
                <p id="${value}">${text}</p>  
@@ -514,7 +514,7 @@ const APPController = (function(UICtrl, APICtrl) {
             UICtrl.resetRelated()
             /* UICtrl.resetSearchList() */
 
-
+           
             const token = await APICtrl.getToken();     
             UICtrl.storeToken(token);
             const artist_Id = e.target.id
@@ -557,6 +557,9 @@ const APPController = (function(UICtrl, APICtrl) {
         const token = await APICtrl.getToken();           
         //store the token onto the page
         UICtrl.storeToken(token);
+
+         const tittle = document.querySelector(".tittle-genre")
+            tittle.classList.add("active")
     
         //get the genres
         const genres = await APICtrl.getGenres(token);

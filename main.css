@@ -270,8 +270,21 @@ article {
 
 .container-genre {
   padding: 0 15px;
+
   margin-bottom: 20px;
 }
+.tittle-genre {
+  max-width: 1024px;
+  margin: 0 auto;
+  padding-left: 15px;
+  font-weight: 400;
+  color: white;
+  display: none;
+}
+.tittle-genre.active {
+  display: block;
+}
+
 #select_genre,
 #id-albums,
 #id-related {
