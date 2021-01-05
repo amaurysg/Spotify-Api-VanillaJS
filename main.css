@@ -169,7 +169,8 @@ article img {
 .result-search:hover .play-icon,
 .albums_by_artist:hover .play-icon,
 .related_by_artist:hover .play-icon,
-.type_genre:hover .play-icon {
+.type_genre:hover .play-icon,
+.type_seeds:hover .play-icon {
   margin-top: -70px;
   opacity: 1;
 }
@@ -284,7 +285,8 @@ article {
   display: none;
 }
 .tittle-genre,
-.tittle-featured {
+.tittle-featured,
+.tittle-seeds {
   max-width: 1200px;
   margin: 0 auto;
   padding-left: 15px;
@@ -295,7 +297,8 @@ article {
 .tittle-genre.active,
 .tittle-albums.active,
 .tittle-related.active,
-.tittle-featured.active {
+.tittle-featured.active,
+.tittle-seeds.active {
   display: block;
 }
 
@@ -303,7 +306,8 @@ article {
 #id-albums,
 #id-featured,
 #id-related,
-#select_featured {
+#select_featured,
+#select_seeds {
   padding: 0 20px;
   margin-bottom: 20px;
   display: flex;
@@ -320,6 +324,7 @@ article {
 .result-search,
 .type_genre,
 .type_featured,
+.type_seeds,
 .albums_by_artist,
 .related_by_artist,
 .play {
@@ -361,11 +366,13 @@ article {
 .albums_by_artist:hover,
 .related_by_artist:hover,
 .type_featured:hover,
+.type_seeds:hover,
 .play:hover {
   background-color: #282828;
 }
 
 .type_genre p,
+.type_seeds p,
 .albums_by_artist p,
 .related_by_artist p,
 .play p {
@@ -484,7 +491,8 @@ article {
 
 .container-genre,
 .container-albums,
-.container-related {
+.container-related,
+.container-seeds {
   display: flex;
   /*  justify-content: center; */
   align-items: center;
@@ -587,7 +595,8 @@ footer .footer-container {
   #id-featured,
   #id-albums,
   #id-related,
-  #select_featured {
+  #select_featured,
+  #select_seeds {
     overflow: initial;
   }
   .container-search,

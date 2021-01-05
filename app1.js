@@ -19,6 +19,21 @@ const APIController = (function() {
     }
     
 
+    const _getSeeds = async (token) => {
+       /*  const limit =6
+        const country = "CO" */
+
+      const result = await fetch(`https://api.spotify.com/v1/recommendations?seed_artists=2FcC4sDMXme2ziI7tGKMK8&seed_genres=rock&seed_tracks=0M8rrUcBYXa24y3AIKQ19z`, {
+          method: 'GET',
+          headers: { 'Authorization' : 'Bearer ' + token},
+          
+      });
+      
+      const data = await result.json()
+      console.log("data seeds:", data.tracks)
+      return data.tracks
+  } 
+
     const _getFeatured = async (token) => {
         const limit =6
         const country = "CO"
@@ -176,6 +191,10 @@ const APIController = (function() {
         getGenres(token) {
             return _getGenres(token);
         },
+        getSeeds(token) {
+            return _getSeeds(token);
+        },
+
         getFeatured(token){
             return _getFeatured(token);
         },
@@ -223,6 +242,7 @@ const UIController = (function() {
         divTracks: '#id-tracks',
         btnSearch: "#btn-search",
         divFeatured : '#select_featured',
+        divSeeds: '#select_seeds',
         divArtist: "#id-artist",
         divAlbums: "#id-albums",
         divRelated: "#id-related",
@@ -258,6 +278,7 @@ const UIController = (function() {
                 /* genreType: document.querySelector(DOMElements.typeGenre), */
                 search: document.querySelector(DOMElements.divSearch),
                 featured : document.querySelector(DOMElements.divFeatured),
+                seeds : document.querySelector(DOMElements.divSeeds),
                 tracksByArtist: document.querySelector(DOMElements.divTracks),
                 albums: document.querySelector(DOMElements.divAlbums),
                 related: document.querySelector(DOMElements.divRelated),
@@ -406,6 +427,24 @@ const UIController = (function() {
                
                `;
             document.querySelector(DOMElements.divFeatured).insertAdjacentHTML('beforeend', html);
+           
+         },
+         createSeeds(text, value, images){
+               const html = `
+       
+             
+               <div class="type_seeds" id="${value}">
+               <img id="${value}" src="${images}" alt=""/>    
+               <p id="${value}">${text}</p>  
+               <div class="play-icon"></div>
+             
+               </div>
+               
+            
+               
+               
+               `;
+            document.querySelector(DOMElements.divSeeds).insertAdjacentHTML('beforeend', html);
            
          },
 
@@ -608,6 +647,24 @@ const APPController = (function(UICtrl, APICtrl) {
          /* text, value, images */
         
      }
+     const loadSeeds= async () => {
+        //get the token
+        const token = await APICtrl.getToken();           
+        //store the token onto the page
+        UICtrl.storeToken(token);
+
+         const tittle = document.querySelector(".tittle-seeds")
+            tittle.classList.add("active")
+    
+        //get the genres
+        const seeds = await APICtrl.getSeeds(token);
+        //populate our genres select element
+
+       
+        seeds.forEach(s => UICtrl.createSeeds(s.name, s.id, s.album.images[1].url));
+         /* text, value, images */
+        
+     }
 
      const loadGenres = async () => {
         //get the token
@@ -708,8 +765,9 @@ const APPController = (function(UICtrl, APICtrl) {
         init() {
             console.log('App is starting');
             /* loadSearch(); */
-            loadGenres();
             loadFeatured();
+            loadSeeds();
+            loadGenres();
            
            
         }
