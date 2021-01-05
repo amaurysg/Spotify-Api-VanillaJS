@@ -619,7 +619,7 @@ const APPController = (function(UICtrl, APICtrl) {
 
              const related = await APICtrl.getRelated(token, artist_Id)
              console.log(related)
-             related.slice(0,5).forEach(r => UICtrl.createRelated(r.id,r.name, r.images[1].url, r.type))
+             related.slice(0,10).forEach(r => UICtrl.createRelated(r.id,r.name, r.images[1].url, r.type))
              const tittle_related = document.querySelector(".tittle-related")
             tittle_related.classList.add("active")
             /* id, name, images, type*/

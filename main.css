@@ -142,7 +142,7 @@ article img {
 }
 .container-search {
   padding: 0 20px;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
   display: flex;
   overflow: hidden;
   overflow-x: scroll;
@@ -287,10 +287,12 @@ article {
 .tittle-genre,
 .tittle-featured,
 .tittle-seeds {
+  font-size: 1.8em;
   max-width: 1200px;
   margin: 0 auto;
   padding-left: 15px;
-  font-weight: 400;
+  font-weight: 700;
+
   color: white;
   display: none;
 }
@@ -309,7 +311,7 @@ article {
 #select_featured,
 #select_seeds {
   padding: 0 20px;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
   display: flex;
   overflow: hidden;
   overflow-x: scroll;
@@ -337,7 +339,7 @@ article {
   cursor: pointer;
 }
 .type_featured {
-  border: #1db954 solid 1px;
+  /* border: #1db954 solid 1px; */
   position: relative;
   background-color: #181818;
   margin: 5px;
@@ -434,7 +436,7 @@ article {
   align-items: center;
   overflow: hidden;
   height: auto;
-  margin-bottom: 20px;
+  /*  margin-bottom: 20px; */
 }
 .tracks-tittle {
   visibility: hidden;
@@ -621,9 +623,9 @@ footer .footer-container {
     width: 100%;
   }
   .container-tracks {
-    margin-top: 10px;
-    margin-bottom: 30px;
-    padding: 20px;
+    /*   margin-top: 10px; */
+    /* margin-bottom: 30px; */
+    /* padding: 20px; */
     width: 100%;
     /* border: #1db954 solid 1px; */
   }
