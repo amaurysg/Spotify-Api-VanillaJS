@@ -305,7 +305,7 @@ const UIController = (function() {
 
 
 
-        createSearch(id,name, followers,images) {
+        createSearch(id,name, type,images) {
            
         
                 const html =   `    
@@ -314,6 +314,8 @@ const UIController = (function() {
                     
                     <img id="${id}" src="${images}" alt=""/>
                     <h6 id="${id}">${name}</h6>
+                    <p>${type}</p>
+
                     <div class="play-icon"></div>
                    
                     </article>
@@ -405,6 +407,7 @@ const UIController = (function() {
              const html = `
              <div  class="play" value="${value}">
                 <img src="${images}" alt=""/>
+                <p>${text}</p>
                
              </div>`;
             
@@ -429,13 +432,14 @@ const UIController = (function() {
             document.querySelector(DOMElements.divFeatured).insertAdjacentHTML('beforeend', html);
            
          },
-         createSeeds(text, value, images){
+         createSeeds(text, value, images, type){
                const html = `
        
              
                <div class="type_seeds" id="${value}">
                <img id="${value}" src="${images}" alt=""/>    
                <p id="${value}">${text}</p>  
+                   <h6>${type}</h6>
                <div class="play-icon"></div>
              
                </div>
@@ -570,7 +574,7 @@ const APPController = (function(UICtrl, APICtrl) {
         const search = await APICtrl.getSearch(token, nameId);
 
  
-        search.forEach(e =>  UICtrl.createSearch(e.id,e.name, e.followers.total, e.images[0].url)); 
+        search.forEach(e =>  UICtrl.createSearch(e.id,e.name, e.type, e.images[0].url)); 
         
     })
     
@@ -661,7 +665,7 @@ const APPController = (function(UICtrl, APICtrl) {
         //populate our genres select element
 
        
-        seeds.forEach(s => UICtrl.createSeeds(s.name, s.id, s.album.images[1].url));
+        seeds.forEach(s => UICtrl.createSeeds(s.name, s.id, s.album.images[1].url, s.type));
          /* text, value, images */
         
      }

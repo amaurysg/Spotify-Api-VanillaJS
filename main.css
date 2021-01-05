@@ -115,9 +115,21 @@ header nav ul li a {
   margin-left: 5px;
 }
 article h6 {
-  margin-top: 10px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: left;
+  margin-top: 5px;
   color: white;
   text-transform: capitalize;
+  margin-bottom: 0;
+}
+article p {
+  color: #b3b3b3;
+  text-align: left;
+  text-transform: capitalize;
+  font-weight: lighter;
+  margin-top: 0;
 }
 article img {
   border-radius: 50%;
@@ -325,7 +337,6 @@ article {
 }
 .result-search,
 .type_genre,
-.type_featured,
 .type_seeds,
 .albums_by_artist,
 .related_by_artist,
@@ -335,6 +346,7 @@ article {
   margin: 5px;
   border-radius: 10px;
   height: 250px;
+  max-width: 160px;
   padding: 10px;
   cursor: pointer;
 }
@@ -379,6 +391,7 @@ article {
 .related_by_artist p,
 .play p {
   text-align: center;
+  text-transform: capitalize;
   margin: 0;
   font-weight: bold;
   color: white;
@@ -392,10 +405,13 @@ article {
 .related_by_artist img {
   border-radius: 10px;
 }
+.result-search p,
 .albums_by_artist p,
-.related_by_artist p {
+.related_by_artist p,
+.type_seeds p,
+.play p {
   margin: 15px 0 0 0;
-
+  white-space: nowrap;
   overflow: hidden;
 
   text-overflow: ellipsis;
@@ -406,7 +422,11 @@ article {
 
 .albums_by_artist h6,
 .related_by_artist h6,
-.tracks-names-artist h6 {
+.tracks-names-artist h6,
+.type_seeds h6 {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   color: #b3b3b3;
   text-align: left;
   text-transform: capitalize;
