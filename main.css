@@ -43,7 +43,7 @@
 }
 
 * {
-  /* outline: red 0.1px solid; */
+  /*  outline: red 0.1px solid; */
   box-sizing: border-box;
 }
 body {
@@ -111,7 +111,9 @@ header nav ul li a {
   max-width: 1200px;
   margin: 0 auto;
 }
-
+.search-main {
+  background-color: #070707;
+}
 .search-container {
   min-width: 380px;
   max-width: 1200px;
@@ -363,6 +365,7 @@ article {
 .tittle-featured.active,
 .tittle-seeds.active {
   display: block;
+  margin-bottom: 30px;
 }
 
 #select_genre,
@@ -671,6 +674,7 @@ footer .footer-nav {
   display: flex;
   flex-direction: row;
   /* border: green solid 1px; */
+  margin-left: 30px;
   width: 50%;
   justify-content: space-between;
 }
@@ -788,7 +792,7 @@ footer .footer-nav {
     /*   margin-top: 10px; */
     /* margin-bottom: 30px; */
     /* padding: 20px; */
-    width: 100%;
+    width: 90%;
     /* border: #1db954 solid 1px; */
   }
   .tracks_by_artist {

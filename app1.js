@@ -1,6 +1,6 @@
 const APIController = (function() {
     
-     const clientId = '41938962de044921be461a055062840b';
+    const clientId = '41938962de044921be461a055062840b';
     const clientSecret = '22688a6ffc444b87be704e2631e8b2e1';
     // private methods
     const _getToken = async () => {
@@ -595,7 +595,7 @@ const APPController = (function(UICtrl, APICtrl) {
           
             const token = await APICtrl.getToken();     
             UICtrl.storeToken(token);
-            const artist_Id = e.target.id
+            const artist_Id = e.target.id 
           
             const artist = await APICtrl.getArtist(token, artist_Id)
 
