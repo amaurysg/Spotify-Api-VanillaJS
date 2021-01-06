@@ -1,3 +1,47 @@
+@font-face {
+  font-family: "icomoon";
+  src: url("../fonts/icomoon.eot?tzue5b");
+  src: url("../fonts/icomoon.eot?tzue5b#iefix") format("embedded-opentype"),
+    url("../fonts/icomoon.ttf?tzue5b") format("truetype"),
+    url("../fonts/icomoon.woff?tzue5b") format("woff"),
+    url("../fonts/icomoon.svg?tzue5b#icomoon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icon-"],
+[class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: "icomoon" !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-menu:before {
+  content: "\e9bd";
+}
+.icon-facebook2:before {
+  content: "\ea91";
+}
+.icon-instagram:before {
+  content: "\ea92";
+}
+.icon-twitter:before {
+  content: "\ea96";
+}
+.icon-github:before {
+  content: "\eab0";
+}
+
 * {
   /* outline: red 0.1px solid; */
   box-sizing: border-box;
@@ -69,14 +113,19 @@ header nav ul li a {
 }
 
 .search-container {
-  height: 80px;
-  background-color: #070707;
   min-width: 380px;
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 80px;
+  padding: 0 20px;
+  background-color: #070707;
   display: flex;
-  justify-content: center;
+
   align-items: center;
 }
 .search-components {
+  height: 47px;
+  width: 380px;
   border-radius: 25px;
   background-color: white;
 }
@@ -92,8 +141,8 @@ header nav ul li a {
   margin: auto 5px auto 10px;
 }
 #input-search {
-  height: 45px;
-  border-radius: 25px;
+  height: 44px;
+
   /* border-color: #1db954; */
   border: none;
   font-weight: 400;
@@ -108,8 +157,8 @@ header nav ul li a {
   font-weight: 500;
   /* border-color: #1db954; */
   border: none;
-  height: 45px;
-  width: 45px;
+  height: 40px;
+  width: 40px;
   border-radius: 50%;
   outline: none;
   margin-left: 5px;
@@ -593,18 +642,111 @@ img.track {
 }
 
 footer {
-  border: red solid 1px;
-  height: 100px;
+  background-color: #000;
+  min-width: 380px;
+  padding: 80px 0 50px;
+  /* border: red solid 1px; */
+  height: 537px;
   box-sizing: border-box;
 }
-footer .footer-container {
-  display: grid;
-  grid-template-columns: 75% 1fr;
+footer .footer-nav {
+  /*  border: blue solid 0.3px; */
+  margin: 0 auto;
+  max-width: 1200px;
+  display: flex;
+  flex-wrap: wrap;
 }
-.footer-container .footer-container_col1 {
-  border: blue solid 1px;
-  height: 100px;
+.footer-nav__logo {
+  width: 16%;
+  padding: 0 15px;
 }
+.footer-nav__logo-img {
+  background-image: url("./spotify-logo.jpg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 80px;
+  width: 132px;
+}
+.footer-nav__column {
+  display: flex;
+  flex-direction: row;
+  /* border: green solid 1px; */
+  width: 50%;
+  justify-content: space-between;
+}
+.footer-nav__column dl {
+  padding: 0 15px;
+  margin: 0;
+}
+.footer-nav__dl-dt {
+  margin: 20px 0;
+  color: #919496;
+  font-size: 12px;
+  font-weight: 900;
+  line-height: 1.4;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.footer-nav__dl-dt--a {
+  padding: 3px 0 15px;
+  display: inline-block;
+  font-size: 1em;
+  font-weight: 600;
+  line-height: 1.5;
+  text-decoration: none;
+  color: white;
+}
+.footer-nav__dl-dt--a:hover {
+  text-decoration: none;
+  color: #1ed760;
+}
+.footer-nav__social {
+  margin: 0 0 0 auto;
+}
+.footer-nav__social-ul {
+  margin: 30px 0 0;
+  padding: 0;
+}
+.footer-nav__social li {
+  list-style: none;
+  margin-left: 15px;
+  display: inline-block;
+}
+
+.footer-social-link {
+  background-color: #222326;
+  border-radius: 50%;
+  padding: 10px;
+  color: white;
+  font-size: 2em;
+}
+.footer-social-link:hover {
+  color: #1ed760;
+  text-decoration: none;
+}
+.footer-nav__country {
+  width: 100%;
+  margin-right: 0 15px;
+  display: flex;
+  justify-content: flex-end;
+}
+.footer-nav__country a {
+  font-size: 12px;
+  color: #919496;
+}
+.footer-nav__country a img {
+  margin-left: 10px;
+  height: 18px;
+  width: 25px;
+}
+.footer-nav__me {
+  width: 100%;
+  text-align: right;
+}
+.footer-nav__me a {
+  color: #919496;
+}
+
 .btn-scroll {
   height: 25px;
   width: 25px;
@@ -657,5 +799,28 @@ footer .footer-container {
   }
   .tracks-names-artist h6 {
     font-size: 14px;
+  }
+  footer .footer-nav {
+    display: block;
+  }
+  .footer-nav__logo {
+    width: 100%;
+  }
+  .footer-nav__logo-img {
+    margin: 0 auto;
+  }
+  .footer-nav__social {
+    text-align: center;
+  }
+  .footer-nav__column {
+    display: none;
+  }
+  .footer-nav__country {
+    margin-top: 35px;
+    justify-content: center;
+  }
+  .footer-nav__me {
+    margin-top: 35px;
+    text-align: center;
   }
 }

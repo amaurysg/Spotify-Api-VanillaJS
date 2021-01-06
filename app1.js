@@ -123,7 +123,7 @@ const APIController = (function() {
     }
     const _getAlbums = async (token, artist_Id)=>{
   
-        const result = await fetch(`https://api.spotify.com/v1/artists/${artist_Id}/albums?market=ES&limit=5&offset=0`, {
+        const result = await fetch(`https://api.spotify.com/v1/artists/${artist_Id}/albums?market=ES&limit=10&offset=0`, {
             method: 'GET',
             headers: { 'Authorization' : 'Bearer ' + token}
         })
