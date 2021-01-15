@@ -719,11 +719,18 @@ footer .footer-nav {
 
 .footer-social-link {
   background-color: #222326;
+
   border-radius: 50%;
-  padding: 10px;
+  padding: 3px;
   color: white;
   font-size: 2em;
+  text-align: center;
 }
+.footer-social-link i {
+  width: 40px;
+  height: 40px;
+}
+
 .footer-social-link:hover {
   color: #1ed760;
   text-decoration: none;
